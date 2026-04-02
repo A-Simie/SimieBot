@@ -1,0 +1,363 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   SimieBot OS — Neo-Tactile Design System
+   "The Luminous Engine"
+   ============================================================ */
+
+@layer base {
+  :root {
+    /* Surface Stack (Deep-Space Desaturation) */
+    --background: #0a0e14;
+    --surface: #0a0e14;
+    --surface-dim: #0a0e14;
+    --surface-container-lowest: #000000;
+    --surface-container-low: #0f141a;
+    --surface-container: #151a21;
+    --surface-container-high: #1b2028;
+    --surface-container-highest: #20262f;
+    --surface-bright: #262c36;
+    --surface-variant: #20262f;
+    --surface-tint: #86adff;
+
+    /* Primary Accent — Luminous Blue */
+    --primary: #86adff;
+    --primary-dim: #699cff;
+    --primary-container: #6e9fff;
+    --primary-fixed: #6e9fff;
+    --primary-fixed-dim: #5491ff;
+    --on-primary: #002c66;
+    --on-primary-container: #002150;
+    --on-primary-fixed: #000000;
+    --on-primary-fixed-variant: #002a62;
+    --inverse-primary: #005bc4;
+
+    /* Secondary Accent — Signal Cyan */
+    --secondary: #00e3fd;
+    --secondary-dim: #00d4ec;
+    --secondary-fixed: #26e6ff;
+    --secondary-fixed-dim: #00d7f0;
+    --secondary-container: #006875;
+    --on-secondary: #004d57;
+    --on-secondary-fixed: #003a42;
+    --on-secondary-fixed-variant: #005964;
+    --on-secondary-container: #e8fbff;
+
+    /* Tertiary — Soft Periwinkle */
+    --tertiary: #cdddff;
+    --tertiary-dim: #aec2e9;
+    --tertiary-fixed: #bbcff7;
+    --tertiary-fixed-dim: #aec2e9;
+    --tertiary-container: #bbcff7;
+    --on-tertiary: #3b4f70;
+    --on-tertiary-container: #324667;
+    --on-tertiary-fixed: #1e3252;
+    --on-tertiary-fixed-variant: #3c4f71;
+
+    /* On-Surface — Text */
+    --on-surface: #f1f3fc;
+    --on-surface-variant: #a8abb3;
+    --on-background: #f1f3fc;
+
+    /* Error */
+    --error: #ff716c;
+    --error-dim: #d7383b;
+    --error-container: #9f0519;
+    --on-error: #490006;
+    --on-error-container: #ffa8a3;
+
+    /* Outline & Borders */
+    --outline: #72757d;
+    --outline-variant: #44484f;
+
+    /* Inverse */
+    --inverse-surface: #f8f9ff;
+    --inverse-on-surface: #51555c;
+
+    /* Compatibility with shadcn (map to Neo-Tactile tokens) */
+    --foreground: var(--on-surface);
+    --muted: var(--surface-container-high);
+    --muted-foreground: var(--on-surface-variant);
+    --popover: var(--surface-container);
+    --popover-foreground: var(--on-surface);
+    --border: var(--outline-variant);
+    --input: var(--surface-container-high);
+    --card: var(--surface-container-low);
+    --card-foreground: var(--on-surface);
+    --primary-foreground: var(--on-primary);
+    --secondary-foreground: var(--on-secondary);
+    --accent: var(--surface-container-high);
+    --accent-foreground: var(--on-surface);
+    --destructive: var(--error);
+    --destructive-foreground: var(--on-error);
+    --ring: var(--primary-dim);
+
+    /* Border Radius */
+    --radius: 1rem;
+
+    /* Neo-Tactile Shadows */
+    --neo-extrusion: 4px 4px 12px rgba(0, 0, 0, 0.5), -2px -2px 8px rgba(255, 255, 255, 0.05);
+    --neo-intrusion: inset 4px 4px 12px rgba(0, 0, 0, 0.5), inset -2px -2px 8px rgba(255, 255, 255, 0.05);
+    --neo-extrusion-strong: 8px 8px 24px rgba(0, 0, 0, 0.6), -4px -4px 12px rgba(255, 255, 255, 0.03);
+    --ambient-shadow: 0px 20px 40px rgba(134, 173, 255, 0.1);
+
+    /* Glassmorphism */
+    --glass-blur: 24px;
+    --glass-bg: rgba(15, 20, 26, 0.6);
+    --glass-border: rgba(255, 255, 255, 0.05);
+  }
+}
+
+/* ============================================================
+   Utility Classes — Neo-Tactile Surface System
+   ============================================================ */
+
+@layer components {
+  .neo-extrusion {
+    box-shadow: var(--neo-extrusion);
+  }
+
+  .neo-intrusion {
+    box-shadow: var(--neo-intrusion);
+  }
+
+  .neo-extrusion-strong {
+    box-shadow: var(--neo-extrusion-strong);
+  }
+
+  .glass-panel {
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+  }
+
+  .glow-blue {
+    filter: drop-shadow(0 0 8px rgba(134, 173, 255, 0.4));
+  }
+
+  .glow-cyan {
+    filter: drop-shadow(0 0 8px rgba(0, 227, 253, 0.6));
+  }
+
+  .glow-ring-blue {
+    box-shadow: 0 0 15px rgba(134, 173, 255, 0.4);
+  }
+
+  .glow-ring-cyan {
+    box-shadow: 0 0 12px rgba(0, 227, 253, 0.5);
+  }
+
+  .ghost-border {
+    border: 1px solid rgba(68, 72, 79, 0.15);
+  }
+
+  .security-ripple {
+    background: radial-gradient(circle at 50% 50%, rgba(110, 159, 255, 0.05) 0%, transparent 70%);
+  }
+
+  .gradient-primary {
+    background: linear-gradient(135deg, #86adff, #6e9fff);
+  }
+}
+
+/* ============================================================
+   Animations
+   ============================================================ */
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 8px rgba(0, 227, 253, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(0, 227, 253, 0.6);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes slide-in-right {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slide-out-right {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+/* ============================================================
+   Scrollbar — Slim Dark Theme
+   ============================================================ */
+
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(168, 171, 179, 0.2);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(168, 171, 179, 0.4);
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* ============================================================
+   Base Styles
+   ============================================================ */
+
+@layer base {
+  * {
+    border-color: var(--outline-variant);
+  }
+
+  body {
+    @apply font-body antialiased;
+    background-color: var(--background);
+    color: var(--on-surface);
+  }
+
+  p {
+    margin: 8px 0;
+  }
+
+  code {
+    color: #86adff;
+  }
+
+  li {
+    padding: 4px;
+  }
+
+  ::selection {
+    background: rgba(134, 173, 255, 0.3);
+  }
+}
+
+/* ============================================================
+   Chat Message Bubble Styles (preserved from template)
+   ============================================================ */
+
+.chat-message-bubble a {
+  text-decoration: underline;
+  color: var(--primary);
+}
+
+.chat-message-bubble ol {
+  list-style: decimal;
+}
+
+.chat-message-bubble ul {
+  list-style: disc;
+}
+
+.chat-message-bubble li {
+  white-space: normal;
+}
+
+.chat-message-bubble pre {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  background: var(--surface-container-lowest);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  margin: 0.5rem 0;
+}
+
+.chat-message-bubble blockquote {
+  border-left: 4px solid var(--primary-dim);
+  padding-left: 16px;
+  color: var(--on-surface-variant);
+}
+
+.chat-message-bubble hr {
+  border-top: 1px solid var(--outline-variant);
+}
+
+.chat-message-bubble h1 {
+  font-size: x-large;
+  font-weight: bold;
+}
+
+.chat-message-bubble h2 {
+  font-size: larger;
+  font-weight: bold;
+}
+
+.chat-message-bubble h3 {
+  font-size: large;
+  font-weight: bold;
+}
+
+.chat-message-bubble h4 {
+  font-size: medium;
+  font-weight: bold;
+}
+
+.chat-message-bubble h5 {
+  font-size: small;
+  font-weight: bold;
+}
+
+.chat-message-bubble h6 {
+  font-size: smaller;
+  font-weight: bold;
+}
+
+.chat-message-bubble del {
+  text-decoration: line-through;
+}
