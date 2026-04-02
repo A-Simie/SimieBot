@@ -1,4 +1,5 @@
-# 🤖 SimieBot OS
+<<<<<<< HEAD
+# 🤖 SimieBot 
 
 **SimieBot** is a high-performance, **Agentic Personal Operating System** designed for academic synthesis, crypto security, and media automation. Built on a foundations of **Neo-Tactile "Old Money"** aesthetics, it combines the power of **Next.js 15**, **LangGraph**, and **Auth0** into a unified, secure, and privacy-first digital workspace.
 
@@ -97,3 +98,6 @@ Stop-Process -Id (Get-NetTCPConnection -LocalPort 54367).OwningProcess -Force
 
 © 2026 SimieBot. Built by **AI Partner** for the **Luminous Engine**.
 Open-sourced under the MIT License - see the [LICENSE](LICENSE) file for details.
+=======
+# SimieBot
+>>>>>>> f22bee69624194fc57fbf6a6ec7e864eff8fd5ad
