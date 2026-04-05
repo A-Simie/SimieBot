@@ -4,7 +4,7 @@ import { useState } from 'react';
 import type { FormEvent, ReactNode } from 'react';
 import { toast } from 'sonner';
 import { StickToBottom, useStickToBottomContext } from 'use-stick-to-bottom';
-import { ArrowDown, ArrowUpIcon, LoaderCircle } from 'lucide-react';
+import { ArrowDown, LoaderCircle } from 'lucide-react';
 import { useQueryState } from 'nuqs';
 import { useStream } from '@langchain/langgraph-sdk/react';
 import { type Message } from '@langchain/langgraph-sdk';
@@ -152,6 +152,12 @@ export function ChatWindow({
     setInput('');
   }
 
+  function resumeInterruptedRun() {
+    chat.submit(null, {
+      multitaskStrategy: 'enqueue',
+    });
+  }
+
   return (
     <div className="h-full relative overflow-hidden bg-background">
       <StickToBottom>
@@ -163,7 +169,7 @@ export function ChatWindow({
               <>
                 <ChatMessages messages={chat.messages} />
                 <div className="max-w-[768px] mx-auto pb-12 w-full">
-                  <TokenVaultInterruptHandler interrupt={chat.interrupt} onFinish={() => chat.submit(null)} />
+                  <TokenVaultInterruptHandler interrupt={chat.interrupt} onFinish={resumeInterruptedRun} />
                 </div>
               </>
             )
@@ -174,7 +180,7 @@ export function ChatWindow({
               
               {/* Suggestion Pills */}
               <div className="flex gap-2 mb-4 overflow-x-auto no-scrollbar max-w-[768px] mx-auto">
-                {['Synthesize thesis', 'Scan wallet', 'Analyze latest feed', 'Settings'].map((s) => (
+                {['Find my latest unread email', 'Check today on my calendar', 'Plan a YouTube publish flow', 'Summarize my profile'].map((s) => (
                   <button 
                     key={s} 
                     onClick={() => setInput(s)}

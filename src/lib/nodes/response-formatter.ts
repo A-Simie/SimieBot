@@ -1,5 +1,3 @@
-import { ChatOpenAI } from '@langchain/openai';
-
 export async function responseFormatterNode(state: any) {
   const { messages } = state;
   const lastMessage = messages[messages.length - 1];

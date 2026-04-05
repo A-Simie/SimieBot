@@ -1,5 +1,5 @@
 import { type Message, type AIMessage } from '@langchain/langgraph-sdk';
-import { Loader2, CheckCircle, Info } from 'lucide-react';
+import { Loader2, CheckCircle } from 'lucide-react';
 
 import { cn } from '@/utils/cn';
 import { MemoizedMarkdown } from './memoized-markdown';

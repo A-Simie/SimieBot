@@ -20,8 +20,8 @@ const inter = Inter({
   display: 'swap',
 });
 
-const TITLE = 'SimieBot OS — Your Personal Operating System';
-const DESCRIPTION = 'AI-driven modular personal operating system. Research, crypto security, media processing, and web automation — all in one Neo-Tactile interface.';
+const TITLE = 'SimieBot OS — Secure Connected Account Workflows';
+const DESCRIPTION = 'Auth0-powered agent orchestration for Gmail, Calendar, creator workflows, and future Coinbase connected-account actions.';
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const session = await auth0.getSession();

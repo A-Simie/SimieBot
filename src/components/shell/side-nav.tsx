@@ -5,10 +5,10 @@ import { usePathname } from 'next/navigation';
 
 const NAV_ITEMS = [
   { icon: 'dashboard', label: 'Dashboard', href: '/' },
-  { icon: 'psychology', label: 'Thesis', href: '/thesis' },
-  { icon: 'account_balance_wallet', label: 'Crypto', href: '/crypto' },
-  { icon: 'hub', label: 'Hub', href: '/comm' },
-  { icon: 'subscriptions', label: 'Media', href: '/media' },
+  { icon: 'hub', label: 'Workspace', href: '/comm' },
+  { icon: 'account_balance_wallet', label: 'Finance', href: '/crypto' },
+  { icon: 'subscriptions', label: 'Creator', href: '/media' },
+  { icon: 'monitoring', label: 'Activity', href: '/activity' },
   { icon: 'settings', label: 'Settings', href: '/settings' },
 ];
 

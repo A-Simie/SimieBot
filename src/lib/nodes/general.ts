@@ -1,29 +1,32 @@
-import { createReactAgent } from '@langchain/langgraph/prebuilt';
-import { ChatOpenAI } from '@langchain/openai';
+import { ToolNode, createReactAgent } from '@langchain/langgraph/prebuilt';
 import { Calculator } from '@langchain/community/tools/calculator';
 import { SerpAPI } from '@langchain/community/tools/serpapi';
 import { GmailCreateDraft, GmailSearch } from '@langchain/community/tools/gmail';
+
 import {
   getAccessToken,
   withCalendar,
   withGmailRead,
   withGmailWrite,
 } from '../auth0-ai';
+import { createNovaLiteModel } from '../bedrock';
 import { getUserInfoTool } from '../tools/user-info';
 import { getCalendarEventsTool } from '../tools/google-calendar';
 
 let _agent: any;
 
-/**
- * Lazy-initialized general agent node.
- * Prevents top-level blocking during LangGraph schema extraction.
- */
+const GENERAL_SYSTEM_PROMPT = `You are the SimieBot General Node.
+Handle general assistant work plus the hackathon-critical connected-account flows:
+- Gmail search and drafting
+- Google Calendar lookups
+- user identity context
+- lightweight web search when SerpAPI is configured
+
+Answer clearly and keep the focus on secure, on-behalf-of-user actions.`;
+
 export async function generalNode(state: any, config?: any) {
   if (!_agent) {
-    const llm = new ChatOpenAI({
-      model: 'gpt-4o-mini',
-      temperature: 0,
-    });
+    const llm = createNovaLiteModel({ temperature: 0 });
 
     const gmailParams = {
       credentials: {
@@ -45,7 +48,10 @@ export async function generalNode(state: any, config?: any) {
 
     _agent = createReactAgent({
       llm,
-      tools,
+      tools: new ToolNode(tools, {
+        handleToolErrors: false,
+      }),
+      prompt: GENERAL_SYSTEM_PROMPT,
     });
   }
   return _agent.invoke(state, config);

@@ -6,14 +6,14 @@ export default async function ActivityPage() {
   if (!session) redirect('/auth/login');
 
   const mockLogs = [
-    { timestamp: '2026-04-02 14:22:01', node: 'Router', tool: 'intent_classifier', input: 'Scan my wallet for approvals', status: 'success', risk: 'low' },
-    { timestamp: '2026-04-02 14:22:03', node: 'Crypto', tool: 'wallet_scanner', input: '0x742d...f44e', status: 'success', risk: 'medium' },
-    { timestamp: '2026-04-02 14:20:15', node: 'Research', tool: 'arxiv_search', input: 'decentralized neural architectures', status: 'success', risk: 'low' },
-    { timestamp: '2026-04-02 14:18:42', node: 'General', tool: 'gmail_search', input: 'recent invoices', status: 'success', risk: 'low' },
-    { timestamp: '2026-04-02 14:15:00', node: 'Crypto', tool: 'dead_man_switch', input: 'Auto-check trigger', status: 'skipped', risk: 'high' },
-    { timestamp: '2026-04-02 13:58:30', node: 'WebAuto', tool: 'form_filler', input: 'University application form', status: 'pending_approval', risk: 'high' },
-    { timestamp: '2026-04-02 13:45:12', node: 'Research', tool: 'rag_retrieval', input: 'RSI safety protocols', status: 'success', risk: 'low' },
-    { timestamp: '2026-04-02 13:30:00', node: 'Video', tool: 'video_processor', input: 'lecture_recording.mp4', status: 'success', risk: 'low' },
+    { timestamp: '2026-04-02 14:22:01', node: 'Router', tool: 'intent_classifier', input: 'Publish my latest Drive video to YouTube', status: 'success', risk: 'low' },
+    { timestamp: '2026-04-02 14:22:03', node: 'Creator', tool: 'list_drive_assets', input: 'recent video files', status: 'pending_approval', risk: 'medium' },
+    { timestamp: '2026-04-02 14:20:15', node: 'Creator', tool: 'create_shotstack_render', input: 'youtube-ready mp4', status: 'success', risk: 'low' },
+    { timestamp: '2026-04-02 14:18:42', node: 'General', tool: 'search_gmail', input: 'recent invoices', status: 'success', risk: 'low' },
+    { timestamp: '2026-04-02 14:15:00', node: 'General', tool: 'get_calendar_events', input: 'today', status: 'success', risk: 'low' },
+    { timestamp: '2026-04-02 13:58:30', node: 'Creator', tool: 'publish_youtube_video', input: 'Launch clip draft', status: 'pending_approval', risk: 'high' },
+    { timestamp: '2026-04-02 13:45:12', node: 'Finance', tool: 'get_coinbase_account_summary', input: 'Portfolio overview', status: 'skipped', risk: 'medium' },
+    { timestamp: '2026-04-02 13:30:00', node: 'General', tool: 'get_user_info', input: 'Who am I?', status: 'success', risk: 'low' },
   ];
 
   const riskColors: Record<string, string> = {
@@ -43,7 +43,7 @@ export default async function ActivityPage() {
 
       {/* Filters */}
       <div className="flex flex-wrap gap-2 md:gap-3 mb-6">
-        {['All', 'Router', 'Research', 'Crypto', 'Video', 'WebAuto', 'General'].map((filter) => (
+        {['All', 'Router', 'General', 'Creator', 'Finance'].map((filter) => (
           <button
             key={filter}
             className={`px-3 py-1.5 rounded-full text-[9px] md:text-[10px] font-bold uppercase tracking-wider transition-all ${

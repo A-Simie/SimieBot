@@ -65,6 +65,12 @@ export function ChatPanel({ endpoint, userName }: ChatPanelProps) {
     setInput('');
   }
 
+  function resumeInterruptedRun() {
+    chat.submit(null, {
+      multitaskStrategy: 'enqueue',
+    });
+  }
+
   return (
     <>
       {/* Floating Chat Toggle */}
@@ -153,7 +159,7 @@ export function ChatPanel({ endpoint, userName }: ChatPanelProps) {
                       <ChatMessages messages={chat.messages} />
                       <TokenVaultInterruptHandler
                         interrupt={chat.interrupt}
-                        onFinish={() => chat.submit(null)}
+                        onFinish={resumeInterruptedRun}
                       />
                     </>
                   )}
@@ -163,7 +169,7 @@ export function ChatPanel({ endpoint, userName }: ChatPanelProps) {
                 <div className="px-4 pb-4 pt-2">
                   {/* Suggestion Pills */}
                   <div className="flex gap-2 mb-3 overflow-x-auto no-scrollbar">
-                    {['Scan my wallet', 'Research mode', 'Check email'].map((suggestion) => (
+                    {['Check email', 'Plan YouTube publish', 'What is on my calendar?'].map((suggestion) => (
                       <button
                         key={suggestion}
                         onClick={() => {

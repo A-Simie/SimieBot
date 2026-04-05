@@ -1,7 +1,6 @@
 import { auth0 } from '@/lib/auth0';
 import { redirect } from 'next/navigation';
 import { ChatWindow } from '@/components/chat-window';
-import { GuideInfoBox } from '@/components/guide/GuideInfoBox';
 
 export default async function CommPage() {
   const session = await auth0.getSession();
@@ -14,7 +13,7 @@ export default async function CommPage() {
       </div>
       <h2 className="font-headline text-xl font-bold text-on-surface mb-2">Communication Hub</h2>
       <p className="text-on-surface-variant text-sm text-center max-w-md">
-        Start a conversation with SimieBot Intelligence. Ask about your research, scan a wallet, process media, or automate a workflow.
+        Start a conversation with SimieBot. Ask it to work with Gmail, Calendar, profile context, or plan a Drive-to-YouTube creator flow.
       </p>
     </div>
   );

@@ -23,7 +23,7 @@ export default async function MediaPage() {
             <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-surface-container/60 backdrop-blur-xl flex items-center justify-center cursor-pointer hover:bg-primary/20 transition-all">
               <span className="material-symbols-outlined text-3xl md:text-4xl text-primary" style={{ fontVariationSettings: "'FILL' 1" }}>play_arrow</span>
             </div>
-            <p className="text-xs md:text-sm max-w-xs">No media loaded. Drag & drop or use the chat to process video.</p>
+            <p className="text-xs md:text-sm max-w-xs">No creator asset loaded. Connect Drive or Slack through chat to prepare a YouTube-ready publish flow.</p>
           </div>
         </div>
 

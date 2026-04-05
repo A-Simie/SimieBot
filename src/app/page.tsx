@@ -19,7 +19,7 @@ export default async function DashboardPage() {
               Welcome back, {userName}
             </h1>
             <p className="font-body text-on-surface-variant text-lg">
-              System state: Nominal. 4 Active research threads pending analysis.
+              System state: Nominal. Connected-account workflows ready for Gmail, Calendar, and creator automation.
             </p>
           </div>
           <div className="absolute right-6 md:right-12 top-1/2 -translate-y-1/2 scale-75 md:scale-100">
@@ -52,22 +52,22 @@ export default async function DashboardPage() {
             </div>
           </div>
 
-          {/* Research Snippets */}
+          {/* Workflow Snippets */}
           <div className="bg-surface-container-high rounded-[1rem] p-6 neo-extrusion border border-white/5">
-            <h3 className="font-headline font-bold text-sm tracking-widest uppercase text-on-surface-variant mb-4">Research Snippets</h3>
+            <h3 className="font-headline font-bold text-sm tracking-widest uppercase text-on-surface-variant mb-4">Workflow Snippets</h3>
             <div className="space-y-3">
               <div className="p-3 bg-surface-container rounded-md neo-intrusion flex items-start gap-3">
                 <span className="material-symbols-outlined text-primary text-sm mt-1">description</span>
                 <div>
-                  <p className="text-xs font-semibold">Quantum Ethos Vol. 12</p>
-                  <p className="text-[10px] text-on-surface-variant opacity-60">Synthesized 2m ago</p>
+                  <p className="text-xs font-semibold">YouTube launch clip from Drive</p>
+                  <p className="text-[10px] text-on-surface-variant opacity-60">Ready for render planning</p>
                 </div>
               </div>
               <div className="p-3 bg-surface-container rounded-md neo-intrusion flex items-start gap-3">
                 <span className="material-symbols-outlined text-primary text-sm mt-1">description</span>
                 <div>
-                  <p className="text-xs font-semibold">Neural Mapping v2</p>
-                  <p className="text-[10px] text-on-surface-variant opacity-60">Pending review</p>
+                  <p className="text-xs font-semibold">Unread inbox follow-ups</p>
+                  <p className="text-[10px] text-on-surface-variant opacity-60">Needs approval-aware action</p>
                 </div>
               </div>
             </div>
@@ -131,23 +131,23 @@ export default async function DashboardPage() {
             <h3 className="font-headline font-bold text-xs tracking-widest uppercase text-on-surface-variant">Asset Matrix</h3>
             <span className="material-symbols-outlined text-secondary text-sm">bolt</span>
           </div>
-          <div className="space-y-6">
-            <div className="flex items-end justify-between">
-              <div>
-                <p className="text-[10px] font-bold text-on-surface-variant">BTC/USDT</p>
-                <h4 className="text-xl font-black text-on-surface">$64,231.00</h4>
-              </div>
-              <div className="text-right">
-                <p className="text-xs font-bold text-secondary">+2.4%</p>
-                <div className="flex items-end gap-[2px] h-6">
-                  <div className="w-[3px] bg-secondary/30 h-2" />
-                  <div className="w-[3px] bg-secondary/50 h-3" />
+            <div className="space-y-6">
+              <div className="flex items-end justify-between">
+                <div>
+                  <p className="text-[10px] font-bold text-on-surface-variant">Creator Pipeline</p>
+                  <h4 className="text-xl font-black text-on-surface">Drive to Shotstack to YouTube</h4>
+                </div>
+                <div className="text-right">
+                  <p className="text-xs font-bold text-secondary">AUTH0</p>
+                  <div className="flex items-end gap-[2px] h-6">
+                    <div className="w-[3px] bg-secondary/30 h-2" />
+                    <div className="w-[3px] bg-secondary/50 h-3" />
                   <div className="w-[3px] bg-secondary/70 h-5" />
                   <div className="w-[3px] bg-secondary h-4" />
                   <div className="w-[3px] bg-secondary h-6 animate-pulse" />
+                  </div>
                 </div>
               </div>
-            </div>
             <div className="flex items-end justify-between border-t border-white/5 pt-4">
               <div>
                 <p className="text-[10px] font-bold text-on-surface-variant">ETH/USDT</p>
@@ -168,7 +168,7 @@ export default async function DashboardPage() {
         </div>
 
         {/* Security Protocol Logs */}
-        <div className="bg-slate-950/40 rounded-[1rem] p-4 neo-intrusion border border-white/5 h-48 overflow-hidden flex flex-col">
+          <div className="bg-slate-950/40 rounded-[1rem] p-4 neo-intrusion border border-white/5 h-48 overflow-hidden flex flex-col">
           <div className="flex items-center gap-2 mb-4">
             <span className="w-2 h-2 rounded-full bg-secondary shadow-[0_0_8px_rgba(0,227,253,1)]" />
             <h3 className="font-headline font-bold text-[10px] tracking-widest uppercase text-on-surface-variant">Security Protocol Logs</h3>
@@ -177,26 +177,26 @@ export default async function DashboardPage() {
             <p className="flex items-center gap-2">
               <span className="text-on-surface-variant">[14:22:01]</span>
               <span className="bg-secondary/10 px-1 rounded">AUTH</span>
-              Validating encrypted uplink...
+              Validating Google connected-account uplink...
             </p>
             <p className="flex items-center gap-2">
               <span className="text-on-surface-variant">[14:22:05]</span>
               <span className="text-primary">CORE</span>
-              Heuristic engine initialized.
+              Creator orchestration initialized.
             </p>
             <p className="flex items-center gap-2">
               <span className="text-on-surface-variant">[14:22:12]</span>
               <span className="text-error-dim">WARN</span>
-              Sub-vocal signature mismatch detected.
+              Awaiting YouTube publish authorization.
             </p>
             <p className="flex items-center gap-2 animate-pulse">
               <span className="text-on-surface-variant">[14:22:15]</span>
               <span className="bg-primary/20 px-1 rounded text-primary">LIVE</span>
-              Stream processing active...
+              Token Vault workflow active...
             </p>
             <p className="flex items-center gap-2 opacity-40">
               <span className="text-on-surface-variant">[14:22:18]</span>
-              Neutralizing packet fragmentation.
+              Awaiting creator asset selection.
             </p>
           </div>
         </div>

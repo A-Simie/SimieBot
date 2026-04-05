@@ -8,7 +8,7 @@ export interface ResearchCardProps {
   url?: string;
 }
 
-export function ResearchCard({ title, authors, abstract, relevance, url }: ResearchCardProps) {
+export function ResearchCard({ title, authors, abstract, relevance }: ResearchCardProps) {
   return (
     <div className="bg-surface-container-high neo-extrusion rounded-[1rem] p-5 border border-white/5 my-2 animate-fade-in-up shadow-glow-blue/5 transition-all hover:scale-[1.01]">
       <div className="flex items-center justify-between mb-3">

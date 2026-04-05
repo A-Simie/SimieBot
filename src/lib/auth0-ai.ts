@@ -4,49 +4,69 @@ import { SUBJECT_TOKEN_TYPES } from '@auth0/ai';
 // Get the access token for a connection via Auth0
 export const getAccessToken = async () => getAccessTokenFromTokenVault();
 
-/**
- * Internal lazy-initialized Auth0 AI Client.
- * Prevents top-level blocking during LangGraph schema extraction discovery.
- */
-let _auth0AICustomAPI: Auth0AI;
+const tokenVaultEnvIsConfigured = () =>
+  Boolean(
+    process.env.AUTH0_DOMAIN &&
+      process.env.AUTH0_CUSTOM_API_CLIENT_ID &&
+      process.env.AUTH0_CUSTOM_API_CLIENT_SECRET,
+  );
 
-function getAuth0AICustomAPI() {
-  if (!_auth0AICustomAPI) {
-    _auth0AICustomAPI = new Auth0AI({
-      auth0: {
-        domain: process.env.AUTH0_DOMAIN!,
-        // For token exchange with Token Vault, we want to provide the Custom API Client credentials
-        clientId: process.env.AUTH0_CUSTOM_API_CLIENT_ID!, // Custom API Client ID for token exchange
-        clientSecret: process.env.AUTH0_CUSTOM_API_CLIENT_SECRET!, // Custom API Client secret
-      },
-    });
-  }
-  return _auth0AICustomAPI;
-}
-
-// Connection helper for services (Lazy)
-export const withConnection = (connection: string, scopes: string[]) => (tool: any) =>
-  getAuth0AICustomAPI().withTokenVault({
-    connection,
-    scopes,
-    accessToken: async (_, config) => {
-      return config.configurable?.langgraph_auth_user?.getRawAccessToken();
+const getAuth0AICustomAPI = () =>
+  new Auth0AI({
+    auth0: {
+      domain: process.env.AUTH0_DOMAIN!,
+      clientId: process.env.AUTH0_CUSTOM_API_CLIENT_ID!,
+      clientSecret: process.env.AUTH0_CUSTOM_API_CLIENT_SECRET!,
     },
-    subjectTokenType: SUBJECT_TOKEN_TYPES.SUBJECT_TYPE_ACCESS_TOKEN,
-  })(tool);
+  });
 
-export const withGmailRead = (tool: any) => withConnection('google-oauth2', [
+export const withConnection = (connection: string, scopes: string[]) => {
+  return <T>(tool: T): T => {
+    if (!tokenVaultEnvIsConfigured()) {
+      return tool;
+    }
+
+    return getAuth0AICustomAPI().withTokenVault(
+      {
+        connection,
+        scopes,
+        accessToken: async (_, config) => {
+          return config.configurable?.langgraph_auth_user?.getRawAccessToken();
+        },
+        subjectTokenType: SUBJECT_TOKEN_TYPES.SUBJECT_TYPE_ACCESS_TOKEN,
+      },
+      tool as never,
+    ) as T;
+  };
+};
+
+export const withGmailRead = withConnection('google-oauth2', [
   'openid',
   'https://www.googleapis.com/auth/gmail.readonly',
-])(tool);
+]);
 
-export const withGmailWrite = (tool: any) => withConnection('google-oauth2', [
+export const withGmailWrite = withConnection('google-oauth2', [
   'openid',
   'https://www.googleapis.com/auth/gmail.compose',
-])(tool);
+]);
 
-export const withCalendar = (tool: any) => withConnection('google-oauth2', [
+export const withCalendar = withConnection('google-oauth2', [
   'openid',
   'https://www.googleapis.com/auth/calendar.events',
-])(tool);
+]);
 
+export const withDriveRead = withConnection('google-oauth2', [
+  'openid',
+  'https://www.googleapis.com/auth/drive.readonly',
+]);
+
+export const withYouTubeUpload = withConnection('google-oauth2', [
+  'openid',
+  'https://www.googleapis.com/auth/youtube.upload',
+]);
+
+export const withSlackMediaRead = withConnection('sign-in-with-slack', [
+  'channels:read',
+  'groups:read',
+  'files:read',
+]);
