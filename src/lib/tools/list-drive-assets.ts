@@ -1,27 +1,44 @@
 import { tool } from '@langchain/core/tools';
+import { TokenVaultError } from '@auth0/ai/interrupts';
+import { GaxiosError } from 'gaxios';
 import { z } from 'zod';
 
+import { getAccessToken } from '../auth0-ai';
+import { listDriveVideoAssets } from '../creator-pipeline';
+
 export const listDriveAssetsTool = tool(
-  async ({ query, mimeType }) => {
-    return {
-      status: 'planned',
-      provider: 'Google Drive via Auth0 Token Vault',
-      query,
-      mimeType,
-      current_scope: 'Source discovery for creator workflows is planned but not implemented yet.',
-      future_capabilities: [
-        'List recent drive videos',
-        'Filter files by folder, type, and owner',
-        'Hand off selected assets to the Shotstack render pipeline',
-      ],
-    };
+  async ({ query, mimeType, maxResults }) => {
+    try {
+      const accessToken = await getAccessToken();
+      const assets = await listDriveVideoAssets({
+        accessToken,
+        query,
+        mimeType,
+        maxResults,
+      });
+
+      return {
+        provider: 'Google Drive via Auth0 Token Vault',
+        query,
+        mimeType,
+        count: assets.length,
+        assets,
+      };
+    } catch (error) {
+      if (error instanceof GaxiosError && (error.status === 401 || error.status === 403)) {
+        throw new TokenVaultError('Authorization required to access the Google Drive connection.');
+      }
+
+      throw error;
+    }
   },
   {
     name: 'list_drive_assets',
-    description: 'Planned Google Drive asset discovery for creator workflows.',
+    description: 'List recent Google Drive video assets that can be used in the creator workflow.',
     schema: z.object({
       query: z.string().optional().default('recent video files'),
       mimeType: z.string().optional().default('video/*'),
+      maxResults: z.number().int().min(1).max(20).optional().default(8),
     }),
   },
 );

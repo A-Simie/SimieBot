@@ -34,7 +34,7 @@ export default async function DashboardPage() {
         </div>
         <div className="rounded-3xl border border-white/8 bg-white/4 p-4 text-left shadow-[0_24px_60px_rgba(0,0,0,0.25)]">
           <p className="text-[10px] font-bold uppercase tracking-[0.24em] text-primary">Creator</p>
-          <p className="mt-2 text-sm text-on-surface-variant">Plan Drive to Shotstack to YouTube workflows with secure account access.</p>
+          <p className="mt-2 text-sm text-on-surface-variant">Plan Drive to Nova to FFmpeg to YouTube workflows with secure account access.</p>
         </div>
       </div>
     </div>

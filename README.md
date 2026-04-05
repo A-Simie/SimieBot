@@ -7,7 +7,7 @@ SimieBot is a hackathon-focused Auth0 agent workspace built with Next.js, LangGr
 SimieBot keeps a delegated multi-node architecture:
 - `general`: Gmail, Calendar, user identity, and general assistant tasks
 - `finance`: future Coinbase connected-account workflows
-- `creator`: future Drive/Slack -> Shotstack -> YouTube workflows
+- `creator`: Drive/Slack -> Amazon Nova planning -> FFmpeg render -> YouTube workflows
 
 The graph intentionally routes requests through a router node first, then delegates to a specialist node.
 
@@ -33,6 +33,7 @@ BEDROCK_AWS_REGION="us-east-1"
 BEDROCK_AWS_ACCESS_KEY_ID="YOUR_AWS_ACCESS_KEY_ID"
 BEDROCK_AWS_SECRET_ACCESS_KEY="YOUR_AWS_SECRET_ACCESS_KEY"
 BEDROCK_MODEL_ID="us.amazon.nova-2-lite-v1:0"
+SIMIEBOT_VIDEO_BUCKET="YOUR_S3_BUCKET_FOR_SOURCE_AND_RENDERED_VIDEOS"
 
 APP_BASE_URL="http://localhost:3000"
 AUTH0_SECRET="use [openssl rand -hex 32] to generate a 32 byte value"
@@ -65,5 +66,6 @@ npm run all:dev
 ## Notes
 
 - Gmail and Calendar flows are real.
-- Coinbase and creator pipeline tools are intentionally placeholder planning tools for now.
-- Placeholder tools return `status: "planned"` so the agent does not pretend those workflows are already live.
+- The creator pipeline now includes real Drive asset discovery/staging, Nova edit planning, FFmpeg render orchestration, and YouTube upload wiring.
+- The finance path is still an intentional placeholder for future Coinbase work.
+- To render videos locally, FFmpeg must be installed or `FFMPEG_PATH` must point to the binary.

@@ -20,6 +20,8 @@
     "@auth0/ai": "^6.0.0",
     "@auth0/ai-langchain": "^5.0.0",
     "@auth0/nextjs-auth0": "^4.13.0",
+    "@aws-sdk/client-s3": "^3.1024.0",
+    "@aws-sdk/lib-storage": "^3.1024.0",
     "@langchain/aws": "^0.1.15",
     "@langchain/community": "^0.3.53",
     "@langchain/core": "^0.3.72",

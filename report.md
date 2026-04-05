@@ -16,12 +16,13 @@ SimieBot is a highly secure, autonomous AI assistant designed to handle daily di
 
 ## End-to-end workflow direction
 
-The creator workflow should be built around Shotstack as the video creation and processing engine.
+The creator workflow should be built around Amazon Nova as the planning layer and FFmpeg as the execution layer.
 
 The intended end-to-end path is:
 
 - Auth0-connected Google Drive to access the user's source media
-- Shotstack to transform or prepare the media
+- Amazon Nova to analyze the asset and generate edit instructions
+- FFmpeg to execute those edit instructions and produce the output asset
 - Auth0-connected YouTube to publish on behalf of the user
 
 That means Auth0 matters at both ends of the workflow:
@@ -29,7 +30,7 @@ That means Auth0 matters at both ends of the workflow:
 - Auth0 is used to securely access the user's source asset from Drive
 - Auth0 is used again to publish to the user's YouTube account
 
-Shotstack sits in the middle as the transformation layer, but the real product story is the secure user-delegated workflow from one user-owned system to another.
+Nova and FFmpeg sit in the middle as the intelligence and execution layers, but the real product story is still the secure user-delegated workflow from one user-owned system to another.
 
 The finance workflow should follow the same principle. If I want a finance feature, it should be tied to a real user-authorized provider like Coinbase. The point is not generic crypto intelligence. The point is secure action or insight on behalf of the user through an authenticated connection.
 
@@ -65,7 +66,8 @@ I replaced the weak crypto direction with a future Coinbase-oriented path, becau
 I kept the creator direction, but reframed it properly:
 
 - get media from a connected account like Drive or Slack
-- process it with Shotstack
+- plan edits with Nova
+- execute the edit with FFmpeg
 - publish through a connected user account like YouTube
 
 That is a much better fit for Auth0 than a generic media-processing feature.
@@ -141,7 +143,7 @@ SimieBot is now better framed as a secure connected-account assistant that can:
 - access Gmail on behalf of the user
 - read calendar context
 - use Auth0-protected identity context
-- grow toward creator workflows across Drive, Slack, Shotstack, and YouTube
+- grow toward creator workflows across Drive, Slack, Nova, FFmpeg, and YouTube
 - grow toward finance workflows through a user-authorized provider rather than raw chain scanning
 
 That is a much stronger foundation than trying to be every kind of agent at once.

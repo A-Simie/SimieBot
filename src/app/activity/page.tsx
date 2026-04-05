@@ -8,7 +8,7 @@ export default async function ActivityPage() {
   const mockLogs = [
     { timestamp: '2026-04-02 14:22:01', node: 'Router', tool: 'intent_classifier', input: 'Publish my latest Drive video to YouTube', status: 'success', risk: 'low' },
     { timestamp: '2026-04-02 14:22:03', node: 'Creator', tool: 'list_drive_assets', input: 'recent video files', status: 'pending_approval', risk: 'medium' },
-    { timestamp: '2026-04-02 14:20:15', node: 'Creator', tool: 'create_shotstack_render', input: 'youtube-ready mp4', status: 'success', risk: 'low' },
+    { timestamp: '2026-04-02 14:20:15', node: 'Creator', tool: 'render_video_ffmpeg', input: 'vertical highlight render', status: 'success', risk: 'low' },
     { timestamp: '2026-04-02 14:18:42', node: 'General', tool: 'search_gmail', input: 'recent invoices', status: 'success', risk: 'low' },
     { timestamp: '2026-04-02 14:15:00', node: 'General', tool: 'get_calendar_events', input: 'today', status: 'success', risk: 'low' },
     { timestamp: '2026-04-02 13:58:30', node: 'Creator', tool: 'publish_youtube_video', input: 'Launch clip draft', status: 'pending_approval', risk: 'high' },

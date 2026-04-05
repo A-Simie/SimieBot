@@ -19,7 +19,7 @@ function extractIntent(raw: string): z.infer<typeof IntentSchema>['intent'] {
   const lowered = raw.toLowerCase();
   if (
     lowered.includes('youtube') ||
-    lowered.includes('shotstack') ||
+    lowered.includes('ffmpeg') ||
     lowered.includes('video') ||
     lowered.includes('drive') ||
     lowered.includes('slack media') ||
@@ -47,7 +47,7 @@ export async function routerNode(state: any) {
 Route each user request to exactly one node:
 - general: Gmail, Calendar, user info, general assistant tasks
 - finance: Coinbase and account-on-behalf-of-user finance workflows
-- creator: Google Drive, Slack media intake, Shotstack processing, YouTube publishing
+- creator: Google Drive, Slack media intake, Amazon Nova edit planning, FFmpeg rendering, YouTube publishing
 
 Return JSON only in the form {"intent":"general"}.`,
     },
