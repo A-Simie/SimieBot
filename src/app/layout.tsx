@@ -30,6 +30,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <title>{TITLE}</title>
         <link rel="shortcut icon" type="image/png" href="/images/favicon.png" />
         <meta name="description" content={DESCRIPTION} />
+        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
         <meta property="og:title" content={TITLE} />
         <meta property="og:description" content={DESCRIPTION} />
         <meta name="twitter:card" content="summary_large_image" />

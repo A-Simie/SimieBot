@@ -16,7 +16,7 @@ import { cn } from '@/utils/cn';
 
 function ChatMessages({ messages }: { messages: Message[] }) {
   return (
-    <div className="mx-auto flex w-full max-w-4xl flex-col space-y-3 pb-6 sm:pb-12">
+    <div className="mx-auto flex w-full max-w-full min-w-0 flex-col space-y-3 pb-6 sm:max-w-4xl sm:pb-12">
       {messages.map((m) => (
         <ChatMessageBubble key={m.id} message={m} allMessages={messages} />
       ))}
@@ -61,7 +61,7 @@ function ChatInput({
       }}
       className="flex w-full flex-col px-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] pt-3 animate-fade-in-up sm:p-4"
     >
-      <div className="mx-auto flex w-full max-w-4xl flex-col gap-3 rounded-[1.35rem] border border-white/10 bg-slate-950/75 p-2.5 shadow-[0_28px_80px_rgba(0,0,0,0.35)] backdrop-blur-xl sm:rounded-[1.75rem] sm:p-3">
+      <div className="mx-auto flex w-full max-w-full min-w-0 flex-col gap-3 rounded-[1.2rem] border border-white/10 bg-slate-950/75 p-2.5 shadow-[0_28px_80px_rgba(0,0,0,0.35)] backdrop-blur-xl sm:max-w-4xl sm:rounded-[1.75rem] sm:p-3">
         <div className="flex items-center gap-3">
           <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/5 sm:h-10 sm:w-10 sm:rounded-2xl">
             <span className="material-symbols-outlined text-primary text-sm">smart_toy</span>
@@ -70,7 +70,7 @@ function ChatInput({
             value={value}
             placeholder={placeholder}
             onChange={onChange}
-            className="flex-1 bg-transparent border-none px-1 py-3 text-sm text-on-surface outline-none placeholder:text-on-surface-variant/45 sm:py-4"
+            className="min-w-0 flex-1 bg-transparent border-none px-1 py-3 text-sm text-on-surface outline-none placeholder:text-on-surface-variant/45 sm:py-4"
             autoFocus
           />
           <button
@@ -98,9 +98,9 @@ function StickyToBottomContent({
     <div
       ref={context.scrollRef}
       style={{ width: '100%', height: '100%' }}
-      className="relative grid h-full min-h-[60dvh] grid-rows-[1fr,auto] sm:min-h-[72vh]"
+      className="relative grid h-full min-h-[60dvh] min-w-0 grid-rows-[1fr,auto] sm:min-h-[72vh]"
     >
-      <div ref={context.contentRef} className="h-full px-2.5 py-3 sm:px-6 sm:py-6">
+      <div ref={context.contentRef} className="h-full min-w-0 px-2 py-3 sm:px-6 sm:py-6">
         {content}
       </div>
       {footer}
@@ -152,7 +152,7 @@ export function ChatWindow({
   }
 
   return (
-    <div className="relative h-full min-h-[60dvh] overflow-hidden bg-transparent sm:min-h-[72vh]">
+    <div className="relative h-full min-h-[60dvh] min-w-0 overflow-hidden bg-transparent sm:min-h-[72vh]">
       <StickToBottom>
         <StickyToBottomContent
           content={
@@ -161,7 +161,7 @@ export function ChatWindow({
             ) : (
               <>
                 <ChatMessages messages={chat.messages} />
-                <div className="mx-auto w-full max-w-4xl pb-6 sm:pb-10">
+                <div className="mx-auto w-full max-w-full min-w-0 pb-6 sm:max-w-4xl sm:pb-10">
                   <TokenVaultInterruptHandler interrupt={chat.interrupt} onFinish={resumeInterruptedRun} />
                 </div>
               </>
@@ -171,12 +171,12 @@ export function ChatWindow({
             <div className="sticky bottom-0 w-full bg-gradient-to-t from-[#0b1016] via-[#0b1016]/96 to-transparent pb-[calc(0.25rem+env(safe-area-inset-bottom))] pt-3 sm:pb-6 sm:pt-6">
               <ScrollToBottom className="absolute bottom-full left-1/2 -translate-x-1/2 mb-4" />
 
-              <div className="mx-auto mb-3 flex max-w-4xl gap-2 overflow-x-auto px-2.5 no-scrollbar sm:mb-4 sm:px-6">
+              <div className="mx-auto mb-3 flex max-w-full min-w-0 flex-wrap gap-2 px-2 pb-1 sm:mb-4 sm:max-w-4xl sm:flex-nowrap sm:overflow-x-auto sm:px-6 no-scrollbar">
                 {['Find my latest unread email', 'What is on my calendar today?', 'Summarize my profile', 'Plan a Drive to YouTube workflow'].map((s) => (
                   <button 
                     key={s} 
                     onClick={() => setInput(s)}
-                    className="whitespace-nowrap rounded-full border border-white/10 bg-white/[0.04] px-2.5 py-1.5 text-[9px] font-bold uppercase tracking-[0.16em] text-primary transition-all hover:border-primary/30 hover:bg-white/[0.08] sm:px-3 sm:py-2 sm:text-[10px] sm:tracking-[0.18em]"
+                    className="max-w-full rounded-full border border-white/10 bg-white/[0.04] px-2.5 py-1.5 text-[9px] font-bold uppercase tracking-[0.12em] text-primary transition-all hover:border-primary/30 hover:bg-white/[0.08] sm:whitespace-nowrap sm:px-3 sm:py-2 sm:text-[10px] sm:tracking-[0.18em]"
                   >
                     {s}
                   </button>
