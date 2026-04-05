@@ -4,46 +4,40 @@ import { Loader2, CheckCircle } from 'lucide-react';
 import { cn } from '@/utils/cn';
 import { MemoizedMarkdown } from './memoized-markdown';
 
-// --- Specialized Component Imports ---
-import { ResearchCard } from './generative-ui/research-card';
-import { CryptoRiskGauge } from './generative-ui/crypto-risk-gauge';
-import { VideoTimeline } from './generative-ui/video-timeline';
-import { PreflightLedger } from './generative-ui/preflight-ledger';
-import { HITLApproval } from './generative-ui/hitl-approval';
-import { BibliographyLedger } from './generative-ui/bibliography-ledger';
-
 function ToolCallDisplay({ 
   toolCall, 
   isRunning,
-  messageContent 
+  messageContent,
 }: { 
   toolCall: NonNullable<AIMessage['tool_calls']>[0]; 
   isRunning: boolean;
   messageContent?: string;
 }) {
+  const toolLabel = toolCall.name
+    .replace(/_/g, ' ')
+    .replace(/\b\w/g, (char) => char.toUpperCase());
+
   return (
-    <div className="bg-surface-container-lowest/50 neo-intrusion rounded-[1rem] p-3 mb-2 border border-white/5">
-      <div className="flex items-center gap-2 mb-2">
+    <div className="mb-2 rounded-2xl border border-white/8 bg-slate-950/60 p-3">
+      <div className="mb-2 flex items-center gap-2">
         {isRunning ? (
-          <Loader2 className="w-3 h-3 animate-spin text-primary" />
+          <Loader2 className="h-3 w-3 animate-spin text-primary" />
         ) : (
-          <CheckCircle className="w-3 h-3 text-secondary" />
+          <CheckCircle className="h-3 w-3 text-secondary" />
         )}
-        <span className="font-bold text-[10px] uppercase tracking-widest text-on-surface-variant">
-          {isRunning ? `Neural Processing: ${toolCall.name}` : `Execution Complete: ${toolCall.name}`}
+        <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-on-surface-variant">
+          {isRunning ? `Using ${toolLabel}` : `${toolLabel} complete`}
         </span>
       </div>
 
       {toolCall.args && Object.keys(toolCall.args).length > 0 && (
-        <div className="mb-2">
-          <div className="bg-black/20 rounded px-2 py-1.5 text-[10px] font-mono border border-white/5 text-primary/70 overflow-hidden text-ellipsis">
-            {JSON.stringify(toolCall.args)}
-          </div>
+        <div className="rounded-xl border border-white/6 bg-black/20 px-2 py-1.5 text-[10px] font-mono text-primary/75">
+          {JSON.stringify(toolCall.args)}
         </div>
       )}
       
       {messageContent && !isRunning && (
-        <div className="bg-secondary/5 rounded px-2 py-1.5 text-[10px] border border-secondary/10">
+        <div className="mt-2 rounded-xl border border-secondary/10 bg-secondary/5 px-2 py-1.5 text-[10px]">
           <span className="text-secondary/80">
             {messageContent.length > 100 ? `${messageContent.substring(0, 100)}...` : messageContent}
           </span>
@@ -67,32 +61,7 @@ export function ChatMessageBubble(props: { message: Message; aiEmoji?: string; a
   };
 
   const content = getMessageContent(props.message);
-  
-  // --- SimieBot Generative UI Detection ---
-  // We check if the content contains a specific JSON marker for rich components
-  const renderRichComponent = () => {
-    try {
-      const match = content.match(/\[SIMIE_COMPONENT:(.*?)\]/);
-      if (match) {
-        const { type, data } = JSON.parse(match[1]);
-        switch (type) {
-          case 'research-card': return <ResearchCard {...data} />;
-          case 'crypto-risk': return <CryptoRiskGauge {...data} />;
-          case 'video-timeline': return <VideoTimeline {...data} />;
-          case 'preflight-ledger': return <PreflightLedger {...data} />;
-          case 'hitl-approval': return <HITLApproval {...data} />;
-          case 'bibliography-ledger': return <BibliographyLedger {...data} />;
-          default: return null;
-        }
-      }
-    } catch (e) {
-      console.warn('Failed to parse rich component:', e);
-    }
-    return null;
-  };
-
-  const richComponent = renderRichComponent();
-  const displayContent = richComponent ? content.replace(/\[SIMIE_COMPONENT:.*?\]/, '').trim() : content;
+  const displayContent = content;
   
   const hasContent = displayContent.length > 0;
   const hasToolCalls = toolCalls.length > 0;
@@ -116,20 +85,20 @@ export function ChatMessageBubble(props: { message: Message; aiEmoji?: string; a
   
   const toolResultContent = getToolResultContent();
   
-  if (!(['human', 'ai'].includes(props.message.type) && (hasContent || hasToolCalls || richComponent))) {
+  if (!(['human', 'ai'].includes(props.message.type) && (hasContent || hasToolCalls))) {
     return null;
   }
 
   const isHuman = props.message.type === 'human';
 
   return (
-    <div className={cn('flex flex-col mb-6 w-full animate-fade-in-up', isHuman ? 'items-end' : 'items-start')}>
+    <div className={cn('mb-6 flex w-full flex-col animate-fade-in-up', isHuman ? 'items-end' : 'items-start')}>
       <div className={cn(
-        'flex gap-3 max-w-[85%]',
+        'flex max-w-[92%] gap-3 sm:max-w-[85%]',
         isHuman ? 'flex-row-reverse' : 'flex-row'
       )}>
         {!isHuman && (
-          <div className="w-8 h-8 rounded-full bg-surface-container-high neo-extrusion border border-white/5 flex items-center justify-center shrink-0 mt-1">
+          <div className="mt-1 flex h-9 w-9 shrink-0 items-center justify-center rounded-2xl border border-white/10 bg-white/5">
             <span className="material-symbols-outlined text-primary text-sm">smart_toy</span>
           </div>
         )}
@@ -137,14 +106,14 @@ export function ChatMessageBubble(props: { message: Message; aiEmoji?: string; a
         <div className="flex flex-col gap-2">
           <div
             className={cn(
-              'px-4 py-3 rounded-[1.25rem] shadow-neo-extrusion border border-white/5',
+              'rounded-[1.4rem] border px-4 py-3 shadow-[0_20px_50px_rgba(0,0,0,0.22)]',
               isHuman 
-                ? 'bg-primary text-on-primary rounded-tr-none font-medium' 
-                : 'bg-surface-container-low text-on-surface rounded-tl-none'
+                ? 'rounded-tr-md border-primary/20 bg-primary text-on-primary font-medium'
+                : 'rounded-tl-md border-white/8 bg-white/[0.045] text-on-surface backdrop-blur-sm'
             )}
           >
             {hasToolCalls && (
-              <div className="space-y-2 mb-3 not-prose">
+              <div className="mb-3 space-y-2 not-prose">
                 {toolCalls.map((toolCall) => (
                   <ToolCallDisplay
                     key={toolCall.id}
@@ -155,12 +124,10 @@ export function ChatMessageBubble(props: { message: Message; aiEmoji?: string; a
                 ))}
               </div>
             )}
-            
-            {richComponent && <div className="mb-3">{richComponent}</div>}
-            
+
             {hasContent && (
               <div className={cn(
-                'chat-message-bubble whitespace-pre-wrap prose prose-sm max-w-none',
+                'chat-message-bubble prose prose-sm max-w-none whitespace-pre-wrap',
                 isHuman ? 'prose-invert text-on-primary' : 'dark:prose-invert text-on-surface/90'
               )}>
                 <MemoizedMarkdown content={displayContent} id={props.message.id ?? ''} />
@@ -172,8 +139,8 @@ export function ChatMessageBubble(props: { message: Message; aiEmoji?: string; a
             'flex items-center gap-1 px-1',
             isHuman ? 'justify-end' : 'justify-start'
           )}>
-            <span className="text-[8px] font-bold text-on-surface-variant/50 uppercase tracking-widest">
-              {isHuman ? 'Operator' : 'SimieBot Intelligence'}
+            <span className="text-[8px] font-bold uppercase tracking-[0.22em] text-on-surface-variant/50">
+              {isHuman ? 'You' : 'SimieBot'}
             </span>
           </div>
         </div>

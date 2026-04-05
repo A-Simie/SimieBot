@@ -14,6 +14,25 @@ At the high-risk level, the assistant should only be allowed to perform sensitiv
 
 SimieBot is a highly secure, autonomous AI assistant designed to handle daily digital life. It can summarize morning emails, coordinate across connected apps, and grow into creator and finance workflows. But unlike a standard chatbot, SimieBot is intended to be trusted with higher-stakes actions as well. By leveraging Auth0 Token Vault and CIBA-style asynchronous authorization through a LangGraph Server architecture, SimieBot can securely orchestrate APIs across a user's digital life while ensuring that financial transactions or other permanent actions require explicit real-time approval.
 
+## End-to-end workflow direction
+
+The creator workflow should be built around Shotstack as the video creation and processing engine.
+
+The intended end-to-end path is:
+
+- Auth0-connected Google Drive to access the user's source media
+- Shotstack to transform or prepare the media
+- Auth0-connected YouTube to publish on behalf of the user
+
+That means Auth0 matters at both ends of the workflow:
+
+- Auth0 is used to securely access the user's source asset from Drive
+- Auth0 is used again to publish to the user's YouTube account
+
+Shotstack sits in the middle as the transformation layer, but the real product story is the secure user-delegated workflow from one user-owned system to another.
+
+The finance workflow should follow the same principle. If I want a finance feature, it should be tied to a real user-authorized provider like Coinbase. The point is not generic crypto intelligence. The point is secure action or insight on behalf of the user through an authenticated connection.
+
 ## What I changed
 
 I kept the delegated architecture because that part was strong.
@@ -50,6 +69,26 @@ I kept the creator direction, but reframed it properly:
 - publish through a connected user account like YouTube
 
 That is a much better fit for Auth0 than a generic media-processing feature.
+
+## Feature guardrail
+
+Any new feature idea should pass one simple test:
+
+- Does Auth0 materially matter to the workflow?
+- Is the assistant acting on behalf of the user across a protected account, service, or approval boundary?
+- Does the feature become more trustworthy or more powerful because of connected accounts, Token Vault, scoped access, or stronger approval?
+
+If the answer is no, I should seriously consider dropping it.
+
+If a feature does not align with that guide, it should be abandoned rather than forced into the product.
+
+The kind of feature that does align with the guide is something like:
+
+- message my mom at 10 AM while I am asleep
+
+That fits the intended guardrail because it is an on-behalf-of-user action with real-world consequences, and it becomes much more compelling when it is done through the right identity, authorization, and approval model.
+
+That is the standard I want to use when evaluating future additions.
 
 ## Mistakes I corrected
 

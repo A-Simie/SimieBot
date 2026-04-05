@@ -5,8 +5,6 @@ import { NuqsAdapter } from 'nuqs/adapters/next/app';
 import { Toaster } from '@/components/ui/sonner';
 import { auth0 } from '@/lib/auth0';
 import { TopBar } from '@/components/shell/top-bar';
-import { SideNav } from '@/components/shell/side-nav';
-import { ChatPanel } from '@/components/shell/chat-panel';
 
 const manrope = Manrope({
   subsets: ['latin'],
@@ -45,18 +43,10 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       <body className={`${manrope.variable} ${inter.variable} font-body antialiased bg-background text-on-surface min-h-screen overflow-hidden selection:bg-primary/30`}>
         <NuqsAdapter>
           <TopBar user={session?.user} />
-          <SideNav />
 
-          <main className="sm:ml-20 mt-12 h-[calc(100vh-3rem)] overflow-y-auto overflow-x-hidden">
+          <main className="mt-12 h-[calc(100vh-3rem)] overflow-y-auto overflow-x-hidden">
             {children}
           </main>
-
-          {session && (
-            <ChatPanel
-              endpoint={`${process.env.APP_BASE_URL}/api/chat`}
-              userName={session?.user?.name}
-            />
-          )}
 
           <Toaster richColors />
         </NuqsAdapter>

@@ -1,206 +1,73 @@
 import { auth0 } from '@/lib/auth0';
 import { redirect } from 'next/navigation';
+import { ChatWindow } from '@/components/chat-window';
 
 export default async function DashboardPage() {
   const session = await auth0.getSession();
   if (!session) redirect('/auth/login');
 
   const userName = session.user?.name || 'Operator';
+  const EmptyState = (
+    <div className="flex h-full flex-col items-center justify-center px-4 py-12 text-center">
+      <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-[10px] font-bold uppercase tracking-[0.26em] text-secondary">
+        <span className="h-2 w-2 rounded-full bg-secondary shadow-[0_0_16px_rgba(0,227,253,0.8)]" />
+        Secure actions across connected accounts
+      </div>
+
+      <h1 className="mt-8 max-w-4xl font-headline text-4xl font-black tracking-tight text-on-surface sm:text-5xl md:text-6xl">
+        One chat to work across Gmail, Calendar, Drive, YouTube, and future Coinbase flows.
+      </h1>
+
+      <p className="mt-5 max-w-2xl text-base leading-7 text-on-surface-variant sm:text-lg">
+        Ask SimieBot to read email, check your schedule, or plan a creator workflow. Sensitive actions stay
+        behind Auth0 authorization so the assistant acts on your behalf without becoming reckless.
+      </p>
+
+      <div className="mt-8 grid w-full max-w-3xl gap-3 sm:grid-cols-3">
+        <div className="rounded-3xl border border-white/8 bg-white/4 p-4 text-left shadow-[0_24px_60px_rgba(0,0,0,0.25)]">
+          <p className="text-[10px] font-bold uppercase tracking-[0.24em] text-primary">Gmail</p>
+          <p className="mt-2 text-sm text-on-surface-variant">Search mail, summarize important messages, and draft replies.</p>
+        </div>
+        <div className="rounded-3xl border border-white/8 bg-white/4 p-4 text-left shadow-[0_24px_60px_rgba(0,0,0,0.25)]">
+          <p className="text-[10px] font-bold uppercase tracking-[0.24em] text-primary">Calendar</p>
+          <p className="mt-2 text-sm text-on-surface-variant">Understand your day and prepare approval-aware follow-up actions.</p>
+        </div>
+        <div className="rounded-3xl border border-white/8 bg-white/4 p-4 text-left shadow-[0_24px_60px_rgba(0,0,0,0.25)]">
+          <p className="text-[10px] font-bold uppercase tracking-[0.24em] text-primary">Creator</p>
+          <p className="mt-2 text-sm text-on-surface-variant">Plan Drive to Shotstack to YouTube workflows with secure account access.</p>
+        </div>
+      </div>
+    </div>
+  );
 
   return (
-    <div className="p-4 md:p-8 grid grid-cols-1 md:grid-cols-12 gap-6 animate-fade-in-up">
-      {/* Center Workspace */}
-      <section className="col-span-8 flex flex-col gap-6">
-        {/* Hero Welcome Card */}
-        <div className="relative overflow-hidden p-6 md:p-8 rounded-[1rem] bg-surface-container-low neo-extrusion border border-white/5 flex flex-col justify-center min-h-[280px]">
-          <div className="absolute -right-10 -top-10 w-48 md:w-64 h-48 md:h-64 bg-primary/10 rounded-full blur-[60px] md:blur-[80px]" />
-          <div className="z-10 pr-24 md:pr-48">
-            <h1 className="font-headline text-4xl font-extrabold tracking-tight text-on-surface mb-2 truncate">
+    <div className="relative min-h-[calc(100vh-3rem)] overflow-hidden bg-[radial-gradient(circle_at_top,rgba(134,173,255,0.16),transparent_32%),radial-gradient(circle_at_20%_80%,rgba(0,227,253,0.08),transparent_24%),linear-gradient(180deg,#0a0e14_0%,#0b1016_100%)]">
+      <div className="mx-auto flex h-[calc(100vh-3rem)] w-full max-w-6xl flex-col px-4 pb-6 pt-6 sm:px-6 lg:px-8">
+        <div className="mb-4 flex items-start justify-between gap-4">
+          <div>
+            <p className="text-[10px] font-bold uppercase tracking-[0.28em] text-secondary">Operator session</p>
+            <h2 className="mt-2 font-headline text-2xl font-black tracking-tight text-on-surface sm:text-3xl">
               Welcome back, {userName}
-            </h1>
-            <p className="font-body text-on-surface-variant text-lg">
-              System state: Nominal. Connected-account workflows ready for Gmail, Calendar, and creator automation.
+            </h2>
+            <p className="mt-2 max-w-2xl text-sm text-on-surface-variant sm:text-base">
+              Chat is the main workspace now. Ask SimieBot to help with Gmail, Calendar, profile context,
+              or creator workflows without digging through placeholder panels.
             </p>
           </div>
-          <div className="absolute right-6 md:right-12 top-1/2 -translate-y-1/2 scale-75 md:scale-100">
-            <div className="w-24 md:w-32 h-24 md:h-32 rounded-full border-4 border-primary/20 flex items-center justify-center relative">
-              <div className="absolute inset-0 rounded-full border-2 border-primary animate-pulse opacity-50 shadow-glow-blue" />
-              <span className="material-symbols-outlined text-4xl md:text-5xl text-primary drop-shadow-[0_0_8px_rgba(74,140,255,0.6)]">smart_toy</span>
-            </div>
+          <div className="hidden rounded-3xl border border-white/10 bg-white/5 px-4 py-3 text-right shadow-[0_20px_50px_rgba(0,0,0,0.28)] sm:block">
+            <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-on-surface-variant">Security model</p>
+            <p className="mt-1 text-sm font-semibold text-on-surface">Auth0 connected accounts</p>
           </div>
         </div>
 
-        {/* Grid of Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 flex-1">
-          {/* System Health */}
-          <div className="bg-surface-container-high rounded-[1rem] p-6 neo-extrusion border border-white/5 flex flex-col">
-            <div className="flex justify-between items-start mb-6">
-              <div>
-                <h3 className="font-headline font-bold text-sm tracking-widest uppercase text-on-surface-variant">System Health</h3>
-                <p className="text-2xl font-black text-secondary">98.4%</p>
-              </div>
-              <span className="material-symbols-outlined text-secondary text-3xl">analytics</span>
-            </div>
-            <div className="mt-auto space-y-4">
-              <div className="h-1.5 w-full bg-surface-container-lowest rounded-full overflow-hidden neo-intrusion">
-                <div className="h-full bg-gradient-to-r from-primary to-secondary w-[98%] shadow-[0_0_8px_rgba(0,227,253,0.5)]" />
-              </div>
-              <div className="flex justify-between text-[10px] font-bold text-on-surface-variant tracking-tighter">
-                <span>NEURAL LOAD</span>
-                <span>THERMAL: 32°C</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Workflow Snippets */}
-          <div className="bg-surface-container-high rounded-[1rem] p-6 neo-extrusion border border-white/5">
-            <h3 className="font-headline font-bold text-sm tracking-widest uppercase text-on-surface-variant mb-4">Workflow Snippets</h3>
-            <div className="space-y-3">
-              <div className="p-3 bg-surface-container rounded-md neo-intrusion flex items-start gap-3">
-                <span className="material-symbols-outlined text-primary text-sm mt-1">description</span>
-                <div>
-                  <p className="text-xs font-semibold">YouTube launch clip from Drive</p>
-                  <p className="text-[10px] text-on-surface-variant opacity-60">Ready for render planning</p>
-                </div>
-              </div>
-              <div className="p-3 bg-surface-container rounded-md neo-intrusion flex items-start gap-3">
-                <span className="material-symbols-outlined text-primary text-sm mt-1">description</span>
-                <div>
-                  <p className="text-xs font-semibold">Unread inbox follow-ups</p>
-                  <p className="text-[10px] text-on-surface-variant opacity-60">Needs approval-aware action</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Current Media */}
-          <div className="col-span-2 bg-surface-container-high rounded-[1rem] p-6 neo-extrusion border border-white/5 flex items-center gap-6">
-            <div className="w-16 h-16 rounded-xl overflow-hidden neo-extrusion shrink-0 bg-surface-container-highest flex items-center justify-center">
-              <span className="material-symbols-outlined text-primary text-2xl">album</span>
-            </div>
-            <div className="flex-1">
-              <p className="text-[10px] font-bold text-secondary uppercase tracking-widest">Now Streaming</p>
-              <h4 className="font-headline font-bold text-lg leading-tight">Digital Horizon Synthetics</h4>
-              <p className="text-xs text-on-surface-variant">SimieBot Ambient Engine</p>
-            </div>
-            <div className="flex items-center gap-4">
-              <button className="w-10 h-10 rounded-full neo-extrusion flex items-center justify-center text-on-surface hover:text-primary active:scale-95 transition-all">
-                <span className="material-symbols-outlined">skip_previous</span>
-              </button>
-              <button className="w-12 h-12 rounded-full bg-primary text-on-primary shadow-glow-blue flex items-center justify-center active:scale-95 transition-all">
-                <span className="material-symbols-outlined text-3xl" style={{ fontVariationSettings: "'FILL' 1" }}>pause</span>
-              </button>
-              <button className="w-10 h-10 rounded-full neo-extrusion flex items-center justify-center text-on-surface hover:text-primary active:scale-95 transition-all">
-                <span className="material-symbols-outlined">skip_next</span>
-              </button>
-            </div>
-          </div>
+        <div className="flex-1 overflow-hidden rounded-[2rem] border border-white/8 bg-white/[0.03] shadow-[0_40px_120px_rgba(0,0,0,0.35)] backdrop-blur-xl">
+          <ChatWindow
+            endpoint={`${process.env.APP_BASE_URL}/api/chat`}
+            placeholder={`Ask SimieBot anything, ${userName.split(' ')[0] || userName}...`}
+            emptyStateComponent={EmptyState}
+          />
         </div>
-      </section>
-
-      {/* Right Panel — System Intelligence Layer */}
-      <aside className="col-span-1 md:col-span-4 flex flex-col gap-6">
-        {/* AI Processing Gauge */}
-        <div className="bg-surface-container-low rounded-[1rem] p-6 neo-extrusion border border-white/5 flex flex-col items-center">
-          <h3 className="font-headline font-bold text-xs tracking-widest uppercase text-on-surface-variant self-start mb-6">AI Core Intel</h3>
-          <div className="relative w-40 h-40 flex items-center justify-center">
-            <svg className="w-full h-full -rotate-90">
-              <circle className="text-surface-container-highest" cx="80" cy="80" fill="transparent" r="70" stroke="currentColor" strokeWidth="8" />
-              <circle className="text-secondary drop-shadow-[0_0_8px_rgba(0,227,253,0.6)]" cx="80" cy="80" fill="transparent" r="70" stroke="currentColor" strokeDasharray="440" strokeDashoffset="110" strokeWidth="8" />
-            </svg>
-            <div className="absolute inset-0 flex flex-col items-center justify-center">
-              <span className="text-3xl font-black text-on-surface">75%</span>
-              <span className="text-[8px] font-bold text-on-surface-variant uppercase tracking-widest">Inference</span>
-            </div>
-          </div>
-          <div className="mt-6 w-full flex justify-between gap-2">
-            <div className="flex-1 bg-surface-container-highest p-2 rounded neo-intrusion text-center">
-              <p className="text-[8px] text-on-surface-variant font-bold">TOKENS/S</p>
-              <p className="text-xs font-black text-primary">128.4</p>
-            </div>
-            <div className="flex-1 bg-surface-container-highest p-2 rounded neo-intrusion text-center">
-              <p className="text-[8px] text-on-surface-variant font-bold">LATENCY</p>
-              <p className="text-xs font-black text-secondary">12ms</p>
-            </div>
-          </div>
-        </div>
-
-        {/* Asset Matrix */}
-        <div className="bg-surface-container-low rounded-[1rem] p-6 neo-extrusion border border-white/5 flex-1">
-          <div className="flex justify-between items-center mb-6">
-            <h3 className="font-headline font-bold text-xs tracking-widest uppercase text-on-surface-variant">Asset Matrix</h3>
-            <span className="material-symbols-outlined text-secondary text-sm">bolt</span>
-          </div>
-            <div className="space-y-6">
-              <div className="flex items-end justify-between">
-                <div>
-                  <p className="text-[10px] font-bold text-on-surface-variant">Creator Pipeline</p>
-                  <h4 className="text-xl font-black text-on-surface">Drive to Shotstack to YouTube</h4>
-                </div>
-                <div className="text-right">
-                  <p className="text-xs font-bold text-secondary">AUTH0</p>
-                  <div className="flex items-end gap-[2px] h-6">
-                    <div className="w-[3px] bg-secondary/30 h-2" />
-                    <div className="w-[3px] bg-secondary/50 h-3" />
-                  <div className="w-[3px] bg-secondary/70 h-5" />
-                  <div className="w-[3px] bg-secondary h-4" />
-                  <div className="w-[3px] bg-secondary h-6 animate-pulse" />
-                  </div>
-                </div>
-              </div>
-            <div className="flex items-end justify-between border-t border-white/5 pt-4">
-              <div>
-                <p className="text-[10px] font-bold text-on-surface-variant">ETH/USDT</p>
-                <h4 className="text-xl font-black text-on-surface">$3,452.12</h4>
-              </div>
-              <div className="text-right">
-                <p className="text-xs font-bold text-error">-0.8%</p>
-                <div className="flex items-end gap-[2px] h-6">
-                  <div className="w-[3px] bg-error/70 h-5" />
-                  <div className="w-[3px] bg-error/50 h-3" />
-                  <div className="w-[3px] bg-error/30 h-4" />
-                  <div className="w-[3px] bg-error/20 h-2" />
-                  <div className="w-[3px] bg-error h-1" />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Security Protocol Logs */}
-          <div className="bg-slate-950/40 rounded-[1rem] p-4 neo-intrusion border border-white/5 h-48 overflow-hidden flex flex-col">
-          <div className="flex items-center gap-2 mb-4">
-            <span className="w-2 h-2 rounded-full bg-secondary shadow-[0_0_8px_rgba(0,227,253,1)]" />
-            <h3 className="font-headline font-bold text-[10px] tracking-widest uppercase text-on-surface-variant">Security Protocol Logs</h3>
-          </div>
-          <div className="font-mono text-[9px] text-secondary/70 space-y-2 overflow-y-auto">
-            <p className="flex items-center gap-2">
-              <span className="text-on-surface-variant">[14:22:01]</span>
-              <span className="bg-secondary/10 px-1 rounded">AUTH</span>
-              Validating Google connected-account uplink...
-            </p>
-            <p className="flex items-center gap-2">
-              <span className="text-on-surface-variant">[14:22:05]</span>
-              <span className="text-primary">CORE</span>
-              Creator orchestration initialized.
-            </p>
-            <p className="flex items-center gap-2">
-              <span className="text-on-surface-variant">[14:22:12]</span>
-              <span className="text-error-dim">WARN</span>
-              Awaiting YouTube publish authorization.
-            </p>
-            <p className="flex items-center gap-2 animate-pulse">
-              <span className="text-on-surface-variant">[14:22:15]</span>
-              <span className="bg-primary/20 px-1 rounded text-primary">LIVE</span>
-              Token Vault workflow active...
-            </p>
-            <p className="flex items-center gap-2 opacity-40">
-              <span className="text-on-surface-variant">[14:22:18]</span>
-              Awaiting creator asset selection.
-            </p>
-          </div>
-        </div>
-      </aside>
+      </div>
     </div>
   );
 }
