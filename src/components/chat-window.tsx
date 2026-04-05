@@ -16,7 +16,7 @@ import { cn } from '@/utils/cn';
 
 function ChatMessages({ messages }: { messages: Message[] }) {
   return (
-    <div className="mx-auto flex w-full max-w-4xl flex-col space-y-3 pb-12">
+    <div className="mx-auto flex w-full max-w-4xl flex-col space-y-3 pb-6 sm:pb-12">
       {messages.map((m) => (
         <ChatMessageBubble key={m.id} message={m} allMessages={messages} />
       ))}
@@ -59,24 +59,24 @@ function ChatInput({
         e.preventDefault();
         onSubmit(e);
       }}
-      className="flex w-full flex-col p-4 animate-fade-in-up"
+      className="flex w-full flex-col px-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] pt-3 animate-fade-in-up sm:p-4"
     >
-      <div className="mx-auto flex w-full max-w-4xl flex-col gap-3 rounded-[1.75rem] border border-white/10 bg-slate-950/75 p-3 shadow-[0_28px_80px_rgba(0,0,0,0.35)] backdrop-blur-xl">
+      <div className="mx-auto flex w-full max-w-4xl flex-col gap-3 rounded-[1.35rem] border border-white/10 bg-slate-950/75 p-2.5 shadow-[0_28px_80px_rgba(0,0,0,0.35)] backdrop-blur-xl sm:rounded-[1.75rem] sm:p-3">
         <div className="flex items-center gap-3">
-          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl border border-white/10 bg-white/5">
+          <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/5 sm:h-10 sm:w-10 sm:rounded-2xl">
             <span className="material-symbols-outlined text-primary text-sm">smart_toy</span>
           </div>
           <input
             value={value}
             placeholder={placeholder}
             onChange={onChange}
-            className="flex-1 bg-transparent border-none px-1 py-4 text-sm text-on-surface outline-none placeholder:text-on-surface-variant/45"
+            className="flex-1 bg-transparent border-none px-1 py-3 text-sm text-on-surface outline-none placeholder:text-on-surface-variant/45 sm:py-4"
             autoFocus
           />
           <button
             type="submit"
             disabled={loading}
-            className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-primary to-primary-container text-on-primary shadow-[0_0_24px_rgba(134,173,255,0.35)] transition-all active:scale-95 disabled:opacity-50"
+            className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-primary-container text-on-primary shadow-[0_0_24px_rgba(134,173,255,0.35)] transition-all active:scale-95 disabled:opacity-50 sm:h-11 sm:w-11 sm:rounded-2xl"
           >
             {loading ? <LoaderCircle className="h-4 w-4 animate-spin" /> : <ArrowUp className="h-4 w-4" />}
           </button>
@@ -98,9 +98,9 @@ function StickyToBottomContent({
     <div
       ref={context.scrollRef}
       style={{ width: '100%', height: '100%' }}
-      className="grid grid-rows-[1fr,auto] relative"
+      className="relative grid h-full min-h-[60dvh] grid-rows-[1fr,auto] sm:min-h-[72vh]"
     >
-      <div ref={context.contentRef} className="h-full px-4 py-6 sm:px-6">
+      <div ref={context.contentRef} className="h-full px-2.5 py-3 sm:px-6 sm:py-6">
         {content}
       </div>
       {footer}
@@ -152,7 +152,7 @@ export function ChatWindow({
   }
 
   return (
-    <div className="relative h-full overflow-hidden bg-transparent">
+    <div className="relative h-full min-h-[60dvh] overflow-hidden bg-transparent sm:min-h-[72vh]">
       <StickToBottom>
         <StickyToBottomContent
           content={
@@ -161,22 +161,22 @@ export function ChatWindow({
             ) : (
               <>
                 <ChatMessages messages={chat.messages} />
-                <div className="mx-auto w-full max-w-4xl pb-10">
+                <div className="mx-auto w-full max-w-4xl pb-6 sm:pb-10">
                   <TokenVaultInterruptHandler interrupt={chat.interrupt} onFinish={resumeInterruptedRun} />
                 </div>
               </>
             )
           }
           footer={
-            <div className="sticky bottom-0 w-full bg-gradient-to-t from-[#0b1016] via-[#0b1016]/96 to-transparent pb-6 pt-6">
+            <div className="sticky bottom-0 w-full bg-gradient-to-t from-[#0b1016] via-[#0b1016]/96 to-transparent pb-[calc(0.25rem+env(safe-area-inset-bottom))] pt-3 sm:pb-6 sm:pt-6">
               <ScrollToBottom className="absolute bottom-full left-1/2 -translate-x-1/2 mb-4" />
 
-              <div className="mx-auto mb-4 flex max-w-4xl gap-2 overflow-x-auto px-4 no-scrollbar sm:px-6">
+              <div className="mx-auto mb-3 flex max-w-4xl gap-2 overflow-x-auto px-2.5 no-scrollbar sm:mb-4 sm:px-6">
                 {['Find my latest unread email', 'What is on my calendar today?', 'Summarize my profile', 'Plan a Drive to YouTube workflow'].map((s) => (
                   <button 
                     key={s} 
                     onClick={() => setInput(s)}
-                    className="whitespace-nowrap rounded-full border border-white/10 bg-white/[0.04] px-3 py-2 text-[10px] font-bold uppercase tracking-[0.18em] text-primary transition-all hover:border-primary/30 hover:bg-white/[0.08]"
+                    className="whitespace-nowrap rounded-full border border-white/10 bg-white/[0.04] px-2.5 py-1.5 text-[9px] font-bold uppercase tracking-[0.16em] text-primary transition-all hover:border-primary/30 hover:bg-white/[0.08] sm:px-3 sm:py-2 sm:text-[10px] sm:tracking-[0.18em]"
                   >
                     {s}
                   </button>

@@ -40,11 +40,11 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           rel="stylesheet"
         />
       </head>
-      <body className={`${manrope.variable} ${inter.variable} font-body antialiased bg-background text-on-surface min-h-screen overflow-hidden selection:bg-primary/30`}>
+      <body className={`${manrope.variable} ${inter.variable} font-body antialiased bg-background text-on-surface min-h-screen overflow-x-hidden selection:bg-primary/30`}>
         <NuqsAdapter>
           <TopBar user={session?.user} />
 
-          <main className="mt-12 h-[calc(100vh-3rem)] overflow-y-auto overflow-x-hidden">
+          <main className="mt-14 min-h-[calc(100dvh-3.5rem)] overflow-x-hidden">
             {children}
           </main>
 
