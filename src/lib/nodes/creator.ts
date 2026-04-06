@@ -50,7 +50,7 @@ export async function creatorNode(state: any, config?: any) {
     _agent = createReactAgent({
       llm,
       tools: new ToolNode(tools, {
-        handleToolErrors: false,
+        handleToolErrors: true,
       }),
       prompt: CREATOR_SYSTEM_PROMPT,
     });

@@ -18,7 +18,7 @@ export async function financeNode(state: any, config?: any) {
     _agent = createReactAgent({
       llm,
       tools: new ToolNode(tools, {
-        handleToolErrors: false,
+        handleToolErrors: true,
       }),
       prompt: FINANCE_SYSTEM_PROMPT,
     });

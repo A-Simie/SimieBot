@@ -41,6 +41,7 @@ I kept the delegated architecture because that part was strong.
 - I kept the router-based graph shape.
 - I kept the specialist-node idea.
 - I kept Gmail, Calendar, user info, and the connected-account flow.
+- I integrated SerpAPI for secure, grounded web searching to verify facts before acting.
 - I removed the features that were stretching the project away from the Auth0 story.
 - I switched the model layer from OpenAI to Amazon Nova 2 Lite on Bedrock.
 - I updated the Bedrock model ID to the supported inference-profile form.
@@ -142,6 +143,8 @@ SimieBot is now better framed as a secure connected-account assistant that can:
 
 - access Gmail on behalf of the user
 - read calendar context
+- search the web via SerpAPI to ground actions in real-time facts
+- full Google Drive lifecycle (list, download, and create/save)
 - use Auth0-protected identity context
 - grow toward creator workflows across Drive, Slack, Nova, FFmpeg, and YouTube
 - grow toward finance workflows through a user-authorized provider rather than raw chain scanning

@@ -60,6 +60,11 @@ export const withDriveRead = withConnection('google-oauth2', [
   'https://www.googleapis.com/auth/drive.readonly',
 ]);
 
+export const withDriveWrite = withConnection('google-oauth2', [
+  'openid',
+  'https://www.googleapis.com/auth/drive.file',
+]);
+
 export const withYouTubeUpload = withConnection('google-oauth2', [
   'openid',
   'https://www.googleapis.com/auth/youtube.upload',
