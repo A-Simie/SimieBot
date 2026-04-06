@@ -9,11 +9,17 @@ import {
   getAccessToken,
   withCalendar,
   withDriveWrite,
+  withGithubRead,
+  withGithubWrite,
   withGmailRead,
   withGmailWrite,
+  withSlackMediaRead,
 } from '../auth0-ai';
 import { createNovaLiteModel } from '../bedrock';
 import { getUserInfoTool } from '../tools/user-info';
+import { listGithubReposTool } from '../tools/list-github-repos';
+import { listSlackAssetsTool } from '../tools/list-slack-assets';
+import { deleteGithubRepoTool, renameGithubRepoTool } from '../tools/manage-github-repo';
 
 const GENERAL_SYSTEM_PROMPT = `You are SimieBot. 
 Your tone is "Neo-Tactile": premium, direct, and zero-filler.
@@ -71,6 +77,10 @@ export async function generalNode(state: any, config?: any) {
     withGmailWrite(new GmailCreateDraft(gmailParams)),
     withCalendar(getCalendarEventsTool),
     withDriveWrite(createDriveFileTool),
+    withGithubRead(listGithubReposTool),
+    withGithubWrite(renameGithubRepoTool),
+    withGithubWrite(deleteGithubRepoTool),
+    withSlackMediaRead(listSlackAssetsTool),
     getUserInfoTool,
     webSearchTool,
   ];

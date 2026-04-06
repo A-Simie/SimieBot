@@ -145,6 +145,8 @@ SimieBot is now better framed as a secure connected-account assistant that can:
 - read calendar context
 - search the web via SerpAPI to ground actions in real-time facts
 - full Google Drive lifecycle (list, download, and create/save)
+- full GitHub lifecycle (list repos, rename, and delete)
+- discover Slack channels 
 - use Auth0-protected identity context
 - grow toward creator workflows across Drive, Slack, Nova, FFmpeg, and YouTube
 - grow toward finance workflows through a user-authorized provider rather than raw chain scanning

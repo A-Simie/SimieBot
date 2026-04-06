@@ -75,3 +75,13 @@ export const withSlackMediaRead = withConnection('sign-in-with-slack', [
   'groups:read',
   'files:read',
 ]);
+
+export const withGithubRead = withConnection('github', [
+  'repo',
+  'user',
+]);
+
+export const withGithubWrite = withConnection('github', [
+  'repo',
+  'delete_repo',
+]);
