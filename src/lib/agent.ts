@@ -10,6 +10,10 @@ export const SimieBotAnnotation = Annotation.Root({
     reducer: (prev, next) => next,
     default: () => 'general',
   }),
+  toolHint: Annotation<string | null>({
+    reducer: (_prev, next) => next,
+    default: () => null,
+  }),
 });
 
 const routeByIntent = (state: typeof SimieBotAnnotation.State) => {

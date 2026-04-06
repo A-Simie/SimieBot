@@ -44,12 +44,12 @@ function AsyncAuthorizationPendingCard({
   }, [onFinish, retryAfter, interrupt.ns]);
 
   return (
-    <PromptUserContainer
-      title="Approval Pending"
-      description={`Check your Auth0 Guardian push notification. SimieBot will retry in about ${retryAfter} seconds if you approve the request.`}
-      action={{ label: 'Retry now', onClick: onFinish }}
-      containerClassName="border-white/10 bg-white/[0.04] text-on-surface"
-    />
+      <PromptUserContainer
+        title="Approval Pending"
+        description={`Check your Auth0 Guardian push notification. SimieBot will retry in about ${retryAfter} seconds if you approve the request.`}
+        action={{ label: 'Retry now', onClick: onFinish }}
+        containerClassName="border-[#dbe7ff] bg-white text-[#1a1c1c] shadow-sm"
+      />
   );
 }
 
@@ -92,7 +92,7 @@ export function TokenVaultInterruptHandler({ interrupt, onFinish }: TokenVaultIn
         title="Approval Denied"
         description="The action was rejected in the approval app, so SimieBot did not continue."
         readOnly
-        containerClassName="border-red-400/30 bg-red-500/10 text-on-surface"
+        containerClassName="border-red-200 bg-red-50 text-[#1a1c1c]"
       />
     );
   }
@@ -103,7 +103,7 @@ export function TokenVaultInterruptHandler({ interrupt, onFinish }: TokenVaultIn
         title="Approval Expired"
         description="The approval request expired before it was approved. Ask SimieBot to try again when you are ready."
         readOnly
-        containerClassName="border-amber-400/30 bg-amber-500/10 text-on-surface"
+        containerClassName="border-amber-200 bg-amber-50 text-[#1a1c1c]"
       />
     );
   }
@@ -114,7 +114,7 @@ export function TokenVaultInterruptHandler({ interrupt, onFinish }: TokenVaultIn
         title="Guardian Push Needed"
         description="This user is not enrolled in Auth0 Guardian push notifications yet, so async approval cannot start."
         readOnly
-        containerClassName="border-amber-400/30 bg-amber-500/10 text-on-surface"
+        containerClassName="border-amber-200 bg-amber-50 text-[#1a1c1c]"
       />
     );
   }
@@ -125,7 +125,7 @@ export function TokenVaultInterruptHandler({ interrupt, onFinish }: TokenVaultIn
         title="Approval Required"
         description={interrupt.value.message}
         readOnly
-        containerClassName="border-white/10 bg-white/[0.04] text-on-surface"
+        containerClassName="border-[#dbe7ff] bg-white text-[#1a1c1c] shadow-sm"
       />
     );
   }

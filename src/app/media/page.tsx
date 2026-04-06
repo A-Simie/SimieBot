@@ -1,109 +1,91 @@
-import { auth0 } from '@/lib/auth0';
+import Link from 'next/link';
 import { redirect } from 'next/navigation';
+
+import { WorkspaceShell } from '@/components/shell/workspace-shell';
+import { auth0 } from '@/lib/auth0';
+
+const mediaSteps = [
+  { title: 'Source selection', body: 'Choose a Drive asset from chat before staging it into the creator workflow.' },
+  { title: 'Nova planning', body: 'Generate a structured edit plan from the staged source video.' },
+  { title: 'FFmpeg render', body: 'Render the planned output with validated timings and progress reporting.' },
+  { title: 'YouTube publish', body: 'Publish only after approval when you explicitly choose to upload.' },
+];
 
 export default async function MediaPage() {
   const session = await auth0.getSession();
   if (!session) redirect('/auth/login');
 
   return (
-    <div className="p-4 md:p-8 animate-fade-in-up grid grid-cols-1 lg:grid-cols-12 gap-6 h-full">
-      {/* Main Video Area */}
-      <section className="lg:col-span-8 flex flex-col gap-4">
-        {/* Video Player */}
-        <div className="relative bg-surface-container-lowest rounded-[1rem] neo-extrusion border border-white/5 overflow-hidden flex-1 min-h-[350px] md:min-h-[500px] flex items-center justify-center">
-          {/* 4K Badge */}
-          <div className="absolute top-4 left-4 z-10 shrink-0">
-            <span className="px-3 py-1 bg-primary/20 text-primary text-[9px] md:text-[10px] font-bold rounded-full border border-primary/30">
-              4K ULTRA HD / 60FPS
-            </span>
+    <WorkspaceShell>
+      <main className="min-h-screen bg-[#f9f9f9] pt-14">
+        <div className="mx-auto max-w-5xl px-8 py-12">
+          <div className="mb-10">
+            <h2 className="mb-2 text-3xl font-extrabold tracking-tight text-[#1a1c1c]">Creator Media Workspace.</h2>
+            <p className="max-w-3xl text-[#414755]">
+              Media handling in SimieBot is orchestration-first. Use chat to select source assets, plan edits, render
+              outputs, and move to YouTube publishing when you are ready.
+            </p>
           </div>
 
-          {/* Placeholder */}
-          <div className="flex flex-col items-center gap-4 text-on-surface-variant p-6 text-center">
-            <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-surface-container/60 backdrop-blur-xl flex items-center justify-center cursor-pointer hover:bg-primary/20 transition-all">
-              <span className="material-symbols-outlined text-3xl md:text-4xl text-primary" style={{ fontVariationSettings: "'FILL' 1" }}>play_arrow</span>
-            </div>
-            <p className="text-xs md:text-sm max-w-xs">No creator asset loaded. Connect Drive or Slack through chat to prepare a YouTube-ready publish flow.</p>
-          </div>
-        </div>
-
-        {/* Timeline */}
-        <div className="bg-surface-container-high rounded-[1rem] p-4 neo-extrusion border border-white/5">
-          <div className="flex justify-between text-[9px] md:text-[10px] font-mono text-on-surface-variant mb-2">
-            <span>00:00:00</span>
-            <span>00:00:00</span>
-          </div>
-          <div className="relative h-2 bg-surface-container-highest rounded-full overflow-hidden neo-intrusion">
-            <div className="absolute left-0 top-0 h-full bg-gradient-to-r from-primary to-secondary w-0 rounded-full" />
-            <div className="absolute left-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-on-surface rounded-full shadow-glow-blue cursor-pointer" />
-          </div>
-        </div>
-
-        {/* Thumbnail Strip */}
-        <div className="flex gap-3 overflow-x-auto no-scrollbar pb-2">
-          {[1, 2, 3, 4, 5].map((i) => (
-            <div
-              key={i}
-              className="w-24 h-16 md:w-32 md:h-20 shrink-0 rounded-lg bg-surface-container-high neo-extrusion border border-white/5 flex items-center justify-center cursor-pointer hover:border-primary/30 transition-all"
-            >
-              <span className="material-symbols-outlined text-on-surface-variant/40">image</span>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Right Panel */}
-      <aside className="lg:col-span-4 flex flex-col gap-6">
-        {/* Audio Pulse */}
-        <div className="bg-surface-container-low rounded-[1rem] p-6 neo-extrusion border border-white/5">
-          <div className="flex justify-between items-center mb-4">
-            <h3 className="font-headline font-bold text-xs tracking-widest uppercase text-on-surface-variant">Audio Pulse</h3>
-            <span className="material-symbols-outlined text-secondary text-sm">equalizer</span>
-          </div>
-          <div className="flex items-end justify-center gap-1 h-32 md:h-48">
-            {[40, 70, 55, 85, 60, 90, 45, 75, 50, 80, 65, 95].map((h, i) => (
-              <div
-                key={i}
-                className="w-2 md:w-3 bg-secondary rounded-t-sm animate-pulse"
-                style={{
-                  height: `${h}%`,
-                  animationDelay: `${i * 0.1}s`,
-                  animationDuration: `${0.8 + Math.random() * 0.4}s`,
-                }}
-              />
-            ))}
-          </div>
-        </div>
-
-        {/* Details and Controls */}
-        <div className="flex flex-col gap-6 flex-1">
-          {/* Throughput & Latency */}
-          <div className="bg-surface-container-low rounded-[1rem] p-6 neo-extrusion border border-white/5 space-y-5">
-            {[
-              { label: 'Throughput', value: '1.2 GB/s', pct: 70, color: 'text-secondary' },
-              { label: 'Latency', value: '4ms', pct: 15, color: 'text-on-surface' },
-            ].map((m) => (
-              <div key={m.label}>
-                <div className="flex justify-between text-[10px] font-bold mb-1">
-                  <span className="text-on-surface-variant uppercase tracking-widest">{m.label}</span>
-                  <span className={m.color}>{m.value}</span>
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-12">
+            <section className="rounded-xl bg-white p-8 md:col-span-7">
+              <div className="rounded-xl bg-[#0f172a] p-8 text-white shadow-[0_28px_80px_rgba(15,23,42,0.22)]">
+                <div className="mb-4 flex items-center gap-2">
+                  <div className="h-3 w-3 rounded-full bg-red-500" />
+                  <div className="h-3 w-3 rounded-full bg-yellow-500" />
+                  <div className="h-3 w-3 rounded-full bg-green-500" />
                 </div>
-                <div className="h-1 bg-surface-container-highest rounded-full overflow-hidden">
-                  <div className="h-full bg-secondary" style={{ width: `${m.pct}%` }} />
+
+                <div className="space-y-4">
+                  <p className="font-mono text-sm text-slate-300">drive/latest_source_video.mp4</p>
+                  <div className="h-1 w-3/4 rounded bg-slate-800" />
+                  <div className="h-1 w-1/2 rounded bg-slate-800" />
+                  <div className="mt-8 flex items-center justify-center gap-3 text-center">
+                    {['Drive', 'Nova', 'FFmpeg', 'YouTube'].map((label, index) => (
+                      <div key={label} className="flex items-center gap-3">
+                        <div className="rounded-full bg-white/5 px-3 py-2 text-xs font-bold uppercase tracking-[0.2em] text-slate-200">
+                          {label}
+                        </div>
+                        {index < 3 ? <span className="material-symbols-outlined text-[#86adff]">arrow_forward</span> : null}
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
-            ))}
-          </div>
+            </section>
 
-          {/* Volume */}
-          <div className="bg-surface-container-low rounded-[1rem] p-4 neo-extrusion border border-white/5 flex items-center gap-3">
-            <span className="material-symbols-outlined text-on-surface-variant">volume_up</span>
-            <div className="flex-1 h-1.5 bg-surface-container-highest rounded-full overflow-hidden">
-              <div className="h-full bg-primary w-[75%]" />
-            </div>
+            <section className="rounded-xl bg-white p-8 md:col-span-5">
+              <div className="mb-6 flex items-center text-[#0058bc]">
+                <span className="material-symbols-outlined mr-2">movie</span>
+                <span className="text-sm font-bold uppercase tracking-widest">Current path</span>
+              </div>
+              <div className="space-y-4">
+                {mediaSteps.map((step) => (
+                  <div key={step.title} className="rounded-xl bg-[#f9f9f9] p-4">
+                    <p className="text-sm font-bold text-[#1a1c1c]">{step.title}</p>
+                    <p className="mt-2 text-xs text-[#414755]">{step.body}</p>
+                  </div>
+                ))}
+              </div>
+
+              <div className="mt-8 space-y-3">
+                <Link
+                  href="/creator"
+                  className="block rounded-xl bg-gradient-to-br from-[#0058bc] to-[#0070eb] px-5 py-3 text-center text-sm font-semibold text-white"
+                >
+                  Open creator workflow
+                </Link>
+                <Link
+                  href="/comm"
+                  className="block rounded-xl bg-[#f3f3f3] px-5 py-3 text-center text-sm font-semibold text-[#0058bc]"
+                >
+                  Run from chat
+                </Link>
+              </div>
+            </section>
           </div>
         </div>
-      </aside>
-    </div>
+      </main>
+    </WorkspaceShell>
   );
 }

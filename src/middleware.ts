@@ -7,9 +7,15 @@ import { auth0 } from '@/lib/auth0';
  */
 export async function middleware(request: NextRequest) {
   const authRes = await auth0.middleware(request);
+  const pathname = request.nextUrl.pathname;
 
   // authentication routes — let the middleware handle it
-  if (request.nextUrl.pathname.startsWith('/auth')) {
+  if (pathname.startsWith('/auth')) {
+    return authRes;
+  }
+
+  // keep the landing page public
+  if (pathname === '/' || pathname === '/signin') {
     return authRes;
   }
 

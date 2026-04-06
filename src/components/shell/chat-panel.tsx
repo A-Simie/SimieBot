@@ -14,7 +14,7 @@ function ChatMessages({ messages }: { messages: Message[] }) {
   return (
     <div className="flex flex-col w-full pb-4 space-y-4">
       {messages.map((m) => (
-        <ChatMessageBubble key={m.id} message={m} aiEmoji="🤖" allMessages={messages} />
+        <ChatMessageBubble key={m.id} message={m} allMessages={messages} />
       ))}
     </div>
   );

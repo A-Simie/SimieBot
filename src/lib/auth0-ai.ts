@@ -54,6 +54,22 @@ const getDefaultCibaScopes = () =>
     .map((scope) => scope.trim())
     .filter(Boolean);
 
+const AUTH0_MAX_BINDING_MESSAGE_LENGTH = 64;
+const AUTH0_ALLOWED_BINDING_MESSAGE_PATTERN = /[^A-Za-z0-9\s+\-_. ,:#]/g;
+
+const toSafeBindingMessage = (value: string) => {
+  const normalized =
+    value
+      .replace(AUTH0_ALLOWED_BINDING_MESSAGE_PATTERN, '')
+      .replace(/\s+/g, ' ')
+      .trim() || 'Approve SimieBot action';
+  if (normalized.length <= AUTH0_MAX_BINDING_MESSAGE_LENGTH) {
+    return normalized;
+  }
+
+  return `${normalized.slice(0, AUTH0_MAX_BINDING_MESSAGE_LENGTH - 3).trimEnd()}...`;
+};
+
 export const withConnection = (connection: string, scopes: string[]) => {
   return <T>(tool: T): T => {
     if (!tokenVaultEnvIsConfigured()) {
@@ -104,7 +120,8 @@ export const withAsyncAuthorization = <TArgs extends Record<string, unknown>>(
             config.configurable?.langgraph_auth_user?.identity
           );
         },
-        bindingMessage: async (args) => options.bindingMessage(args as TArgs),
+        bindingMessage: async (args) =>
+          toSafeBindingMessage(await options.bindingMessage(args as TArgs)),
         onUnauthorized: async (err) => {
           if (err instanceof AccessDeniedInterrupt) {
             return {
