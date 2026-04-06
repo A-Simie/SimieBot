@@ -5,6 +5,7 @@ import { NuqsAdapter } from 'nuqs/adapters/next/app';
 import { Toaster } from '@/components/ui/sonner';
 import { auth0 } from '@/lib/auth0';
 import { TopBar } from '@/components/shell/top-bar';
+import { SideNav } from '@/components/shell/side-nav';
 
 const manrope = Manrope({
   subsets: ['latin'],
@@ -18,8 +19,8 @@ const inter = Inter({
   display: 'swap',
 });
 
-const TITLE = 'SimieBot OS — Secure Connected Account Workflows';
-const DESCRIPTION = 'Auth0-powered agent orchestration for Gmail, Calendar, creator workflows, and future Coinbase connected-account actions.';
+const TITLE = 'SimieBot — Secure Connected Account Workflows';
+const DESCRIPTION = 'Auth0-powered agent orchestration for Gmail, Calendar, and creator workflows.';
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const session = await auth0.getSession();
@@ -41,14 +42,14 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           rel="stylesheet"
         />
       </head>
-      <body className={`${manrope.variable} ${inter.variable} font-body antialiased bg-background text-on-surface min-h-screen overflow-x-hidden selection:bg-primary/30`}>
+      <body className={`${manrope.variable} ${inter.variable} font-body antialiased bg-[#0a0e14] text-on-surface min-h-screen overflow-x-hidden selection:bg-primary/30`}>
         <NuqsAdapter>
-          <TopBar user={session?.user} />
-
-          <main className="mt-14 min-h-[calc(100dvh-3.5rem)] overflow-x-hidden">
-            {children}
-          </main>
-
+          <div className="flex flex-col min-h-screen">
+            <TopBar user={session?.user} />
+            <main className="flex-1 pt-14 overflow-hidden relative">
+              {children}
+            </main>
+          </div>
           <Toaster richColors />
         </NuqsAdapter>
       </body>

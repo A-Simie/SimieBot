@@ -10,7 +10,7 @@ export default async function CryptoPage() {
     <div className="p-4 md:p-8 animate-fade-in-up flex flex-col gap-6">
       <div>
         <h1 className="font-headline text-3xl font-extrabold tracking-tight text-on-surface">Finance Workflows</h1>
-        <p className="text-on-surface-variant text-sm mt-1">Planned Coinbase connected-account experiences for the Auth0 hackathon scope</p>
+        <p className="text-on-surface-variant text-sm mt-1">Planned secure financial workflows for the Auth0 hackathon scope</p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">

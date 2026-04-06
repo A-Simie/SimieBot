@@ -28,7 +28,7 @@ function extractIntent(raw: string): z.infer<typeof IntentSchema>['intent'] {
     return 'creator';
   }
 
-  if (lowered.includes('coinbase') || lowered.includes('portfolio') || lowered.includes('balance')) {
+  if (lowered.includes('finance') || lowered.includes('portfolio') || lowered.includes('balance')) {
     return 'finance';
   }
 
@@ -46,7 +46,7 @@ export async function routerNode(state: any) {
       content: `You are an intent classifier for SimieBot.
 Route each user request to exactly one node:
 - general: Gmail, Calendar, user info, general assistant tasks
-- finance: Coinbase and account-on-behalf-of-user finance workflows
+- finance: Secure planning and on-behalf-of-user financial workflows
 - creator: Google Drive, Slack media intake, Amazon Nova edit planning, FFmpeg rendering, YouTube publishing
 
 Return JSON only in the form {"intent":"general"}.`,

@@ -216,6 +216,47 @@
   }
 }
 
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes progress-slide {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(300%);
+  }
+}
+
+@keyframes bounce-custom {
+  0%, 100% {
+    transform: translateY(0);
+    opacity: 0.4;
+  }
+  50% {
+    transform: translateY(-10px);
+    opacity: 1;
+  }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 8s linear infinite;
+}
+
+.animate-progress-slide {
+  animation: progress-slide 2s ease-in-out infinite;
+}
+
+.animate-bounce-custom {
+  animation: bounce-custom 0.8s ease-in-out infinite;
+}
+
 /* ============================================================
    Scrollbar — Slim Dark Theme
    ============================================================ */
@@ -295,18 +336,69 @@
 .chat-message-bubble a {
   text-decoration: underline;
   color: var(--primary);
+  transition: opacity 0.2s;
+}
+
+.chat-message-bubble a:hover {
+  opacity: 0.8;
 }
 
 .chat-message-bubble ol {
-  list-style: decimal;
+  counter-reset: item;
+  padding-left: 0;
+  margin: 1.5rem 0;
+  list-style-type: none;
+}
+
+.chat-message-bubble ol > li {
+  display: flex;
+  margin-bottom: 1rem;
+  padding: 0;
+}
+
+.chat-message-bubble ol > li::before {
+  content: counter(item) ".";
+  counter-increment: item;
+  margin-right: 1rem;
+  color: var(--primary);
+  font-weight: 900;
+  font-family: var(--font-headline);
+  font-size: 0.85rem;
+  min-width: 1.5rem;
+  text-align: right;
+  opacity: 0.8;
 }
 
 .chat-message-bubble ul {
-  list-style: disc;
+  padding-left: 0;
+  margin: 1.5rem 0;
+  list-style-type: none;
+}
+
+.chat-message-bubble ul > li {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+  padding: 0;
+}
+
+.chat-message-bubble ul > li::before {
+  content: "";
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  margin-right: 1.25rem;
+  margin-top: 0.65rem;
+  background-color: var(--primary);
+  flex-shrink: 0;
+  border-radius: 1px;
+  box-shadow: 0 0 8px var(--primary-dim);
+  opacity: 0.7;
 }
 
 .chat-message-bubble li {
   white-space: normal;
+  line-height: 1.6;
 }
 
 .chat-message-bubble pre {

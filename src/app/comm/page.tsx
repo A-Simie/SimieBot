@@ -22,9 +22,7 @@ export default async function CommPage() {
     <div className="h-full relative">
       <ChatWindow
         endpoint={`${process.env.APP_BASE_URL}/api/chat`}
-        emoji="🤖"
-        placeholder={`Hello ${session?.user?.name}, I'm SimieBot. How can I assist you?`}
-        emptyStateComponent={EmptyState}
+        user={session!.user}
       />
     </div>
   );

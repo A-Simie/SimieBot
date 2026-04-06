@@ -11,30 +11,30 @@ export function TopBar({ user }: TopBarProps) {
   return (
     <header
       id="simiebot-topbar"
-      className="fixed top-0 w-full z-50 border-b border-white/5 bg-slate-950/75 backdrop-blur-xl"
+      className="fixed top-0 left-0 right-0 z-50 h-14 border-b border-white/5 bg-[#0d1117]/80 backdrop-blur-xl transition-all"
     >
-      <div className="mx-auto flex h-14 w-full max-w-6xl items-center justify-between px-3 sm:h-12 sm:px-6">
-        <Link href="/" className="group flex min-w-0 items-center gap-2.5 transition-opacity hover:opacity-90 sm:gap-3">
-          <div className="flex h-9 w-9 items-center justify-center rounded-2xl border border-white/10 bg-white/5 shadow-[0_12px_32px_rgba(0,0,0,0.35)] sm:h-8 sm:w-8">
-            <span className="material-symbols-outlined text-[18px] text-primary">smart_toy</span>
-          </div>
-          <div className="min-w-0">
-            <p className="truncate font-headline text-[15px] font-extrabold tracking-tight text-on-surface sm:text-base">SimieBot</p>
-            <p className="hidden text-[10px] uppercase tracking-[0.22em] text-on-surface-variant sm:block">
-              Secure connected-account assistant
-            </p>
-          </div>
-        </Link>
+      <div className="flex h-full items-center justify-between px-6">
+        <div className="flex flex-col">
+          <p className="font-headline text-lg font-black tracking-tighter text-white leading-none">SimieBot</p>
+          <p className="text-[9px] uppercase tracking-[0.25em] text-on-surface-variant font-bold mt-1">SECURE CONNECTED-ACCOUNT ASSISTANT</p>
+        </div>
 
-        <div className="flex items-center gap-2 sm:gap-4">
-          <div className="hidden rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.22em] text-secondary sm:block">
-            LangGraph + Auth0
+        <div className="flex items-center gap-6">
+          <div className="hidden rounded-full border border-primary/20 bg-primary/5 px-4 py-1.5 text-[9px] font-black uppercase tracking-[0.2em] text-primary xl:block shadow-[0_0_15px_rgba(134,173,255,0.1)]">
+            AUTH0 + LANGGRAPH
           </div>
-          {user && (
-            <div className="flex items-center text-on-surface">
-              <UserButton user={user} logoutUrl="/auth/logout" />
-            </div>
-          )}
+
+          <div className="flex items-center gap-3 pl-4 border-l border-white/10">
+            {user && (
+              <div className="flex items-center gap-3">
+                <div className="flex flex-col items-end hidden sm:flex">
+                  <p className="text-[10px] font-bold text-white leading-none">{user.name}</p>
+                  <p className="text-[9px] text-on-surface-variant uppercase tracking-widest">{user.email}</p>
+                </div>
+                <UserButton user={user} logoutUrl="/auth/logout" />
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </header>
