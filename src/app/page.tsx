@@ -17,7 +17,7 @@ export default async function DashboardPage() {
       </div>
 
       <h1 className="mt-5 w-full max-w-full font-headline text-[1.75rem] font-black leading-[1.02] tracking-tight text-on-surface sm:mt-8 sm:max-w-4xl sm:text-5xl md:text-6xl">
-        One chat to work across Gmail, Calendar, Drive, YouTube, and future Coinbase flows.
+        One chat to work across Gmail, Calendar, Drive, and YouTube workflows.
       </h1>
 
       <p className="mt-4 w-full max-w-full text-sm leading-6 text-on-surface-variant sm:mt-5 sm:max-w-2xl sm:text-lg sm:leading-7">

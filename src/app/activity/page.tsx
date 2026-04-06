@@ -12,7 +12,6 @@ export default async function ActivityPage() {
     { timestamp: '2026-04-02 14:18:42', node: 'General', tool: 'search_gmail', input: 'recent invoices', status: 'success', risk: 'low' },
     { timestamp: '2026-04-02 14:15:00', node: 'General', tool: 'get_calendar_events', input: 'today', status: 'success', risk: 'low' },
     { timestamp: '2026-04-02 13:58:30', node: 'Creator', tool: 'publish_youtube_video', input: 'Launch clip draft', status: 'pending_approval', risk: 'high' },
-    { timestamp: '2026-04-02 13:45:12', node: 'Finance', tool: 'get_coinbase_account_summary', input: 'Portfolio overview', status: 'skipped', risk: 'medium' },
     { timestamp: '2026-04-02 13:30:00', node: 'General', tool: 'get_user_info', input: 'Who am I?', status: 'success', risk: 'low' },
   ];
 
@@ -43,7 +42,7 @@ export default async function ActivityPage() {
 
       {/* Filters */}
       <div className="flex flex-wrap gap-2 md:gap-3 mb-6">
-        {['All', 'Router', 'General', 'Creator', 'Finance'].map((filter) => (
+        {['All', 'Router', 'General', 'Creator'].map((filter) => (
           <button
             key={filter}
             className={`px-3 py-1.5 rounded-full text-[9px] md:text-[10px] font-bold uppercase tracking-wider transition-all ${

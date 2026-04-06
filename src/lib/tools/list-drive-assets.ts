@@ -5,6 +5,7 @@ import { z } from 'zod';
 
 import { getAccessToken } from '../auth0-ai';
 import { listDriveVideoAssets } from '../creator-pipeline';
+import { toTypedToolError } from './tool-errors';
 
 export const listDriveAssetsTool = tool(
   async ({ query, mimeType, maxResults }) => {
@@ -29,7 +30,7 @@ export const listDriveAssetsTool = tool(
         throw new TokenVaultError('Authorization required to access the Google Drive connection.');
       }
 
-      throw error;
+      return toTypedToolError('list_drive_assets', error);
     }
   },
   {

@@ -4,7 +4,7 @@ import { createNovaLiteModel, getTextContent } from '../bedrock';
 
 const IntentSchema = z.object({
   intent: z
-    .enum(['general', 'finance', 'creator'])
+    .enum(['general', 'creator'])
     .describe('The specialized node to route the user request to.'),
 });
 
@@ -22,14 +22,9 @@ function extractIntent(raw: string): z.infer<typeof IntentSchema>['intent'] {
     lowered.includes('ffmpeg') ||
     lowered.includes('video') ||
     lowered.includes('drive') ||
-    lowered.includes('slack media') ||
     lowered.includes('publish')
   ) {
     return 'creator';
-  }
-
-  if (lowered.includes('coinbase') || lowered.includes('portfolio') || lowered.includes('balance')) {
-    return 'finance';
   }
 
   return 'general';
@@ -45,9 +40,8 @@ export async function routerNode(state: any) {
       role: 'system',
       content: `You are an intent classifier for SimieBot.
 Route each user request to exactly one node:
-- general: Gmail, Calendar, user info, general assistant tasks
-- finance: Coinbase and account-on-behalf-of-user finance workflows
-- creator: Google Drive, Slack media intake, Amazon Nova edit planning, FFmpeg rendering, YouTube publishing
+- general: Gmail, Calendar, GitHub, Slack channels, user info, general assistant tasks
+- creator: Google Drive, Amazon Nova edit planning, FFmpeg rendering, YouTube publishing
 
 Return JSON only in the form {"intent":"general"}.`,
     },

@@ -19,7 +19,7 @@ const inter = Inter({
 });
 
 const TITLE = 'SimieBot OS — Secure Connected Account Workflows';
-const DESCRIPTION = 'Auth0-powered agent orchestration for Gmail, Calendar, creator workflows, and future Coinbase connected-account actions.';
+const DESCRIPTION = 'Auth0-powered agent orchestration for Gmail, Calendar, and creator workflows across connected accounts.';
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const session = await auth0.getSession();

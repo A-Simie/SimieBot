@@ -12,7 +12,7 @@ At the high-risk level, the assistant should only be allowed to perform sensitiv
 
 ## The project description
 
-SimieBot is a highly secure, autonomous AI assistant designed to handle daily digital life. It can summarize morning emails, coordinate across connected apps, and grow into creator and finance workflows. But unlike a standard chatbot, SimieBot is intended to be trusted with higher-stakes actions as well. By leveraging Auth0 Token Vault and CIBA-style asynchronous authorization through a LangGraph Server architecture, SimieBot can securely orchestrate APIs across a user's digital life while ensuring that financial transactions or other permanent actions require explicit real-time approval.
+SimieBot is a highly secure, autonomous AI assistant designed to handle daily digital life. It can summarize morning emails, coordinate across connected apps, and grow into creator workflows. But unlike a standard chatbot, SimieBot is intended to be trusted with higher-stakes actions as well. By leveraging Auth0 Token Vault and CIBA-style asynchronous authorization through a LangGraph Server architecture, SimieBot can securely orchestrate APIs across a user's digital life while ensuring that financial transactions or other permanent actions require explicit real-time approval.
 
 ## End-to-end workflow direction
 
@@ -32,7 +32,7 @@ That means Auth0 matters at both ends of the workflow:
 
 Nova and FFmpeg sit in the middle as the intelligence and execution layers, but the real product story is still the secure user-delegated workflow from one user-owned system to another.
 
-The finance workflow should follow the same principle. If I want a finance feature, it should be tied to a real user-authorized provider like Coinbase. The point is not generic crypto intelligence. The point is secure action or insight on behalf of the user through an authenticated connection.
+Any future high-stakes workflow should follow the same principle. It should be tied to a real user-authorized provider and should only exist if Auth0 materially improves the safety and trust model.
 
 ## What I changed
 
@@ -45,7 +45,7 @@ I kept the delegated architecture because that part was strong.
 - I removed the features that were stretching the project away from the Auth0 story.
 - I switched the model layer from OpenAI to Amazon Nova 2 Lite on Bedrock.
 - I updated the Bedrock model ID to the supported inference-profile form.
-- I made the placeholder creator and finance tools honest about being planned instead of pretending they were fully implemented.
+- I made the placeholder creator workflows honest about being planned instead of pretending they were fully implemented.
 - I fixed the interrupt resume issue so authorization resumes are less fragile.
 
 ## Why I made these changes
@@ -62,7 +62,7 @@ The project had a good architecture, but the feature scope had drifted into plac
 - generic RAG retrieval
 - semantic video search as a core feature
 
-I replaced the weak crypto direction with a future Coinbase-oriented path, because that is much closer to the "act on behalf of the user" story than raw blockchain scanning.
+I removed the weak crypto direction entirely so the project stays focused on connected-account creator workflows that are actually in scope.
 
 I kept the creator direction, but reframed it properly:
 
@@ -99,7 +99,7 @@ That is the standard I want to use when evaluating future additions.
 
 Some of the original features sounded exciting, but they were not helping the case we need to make.
 
-For example, `wallet-scanner.ts` was pointing toward low-level chain analysis. That may be interesting in isolation, but it does not naturally showcase Auth0 unless the workflow is truly acting on behalf of a user through an identity-backed provider like Coinbase.
+For example, `wallet-scanner.ts` was pointing toward low-level chain analysis. That may be interesting in isolation, but it does not naturally showcase Auth0 in this project, so it should stay out of scope.
 
 Another example was `form-filler.ts`. That was drifting toward computer-use style browser automation. It is a different category of product problem, and it weakens the Auth0 narrative instead of strengthening it.
 
@@ -147,6 +147,6 @@ SimieBot is now better framed as a secure connected-account assistant that can:
 - full Google Drive lifecycle (list, download, and create/save)
 - use Auth0-protected identity context
 - grow toward creator workflows across Drive, Slack, Nova, FFmpeg, and YouTube
-- grow toward finance workflows through a user-authorized provider rather than raw chain scanning
+- stay focused on creator and connected-account workflows that are already in scope
 
 That is a much stronger foundation than trying to be every kind of agent at once.

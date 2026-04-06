@@ -5,6 +5,7 @@ import { z } from 'zod';
 
 import { getAccessToken } from '../auth0-ai';
 import { uploadVideoToYouTube } from '../creator-pipeline';
+import { toTypedToolError } from './tool-errors';
 
 export const publishYouTubeVideoTool = tool(
   async ({ bucket, key, title, description, visibility }) => {
@@ -29,7 +30,7 @@ export const publishYouTubeVideoTool = tool(
         throw new TokenVaultError('Authorization required to publish to YouTube.');
       }
 
-      throw error;
+      return toTypedToolError('publish_youtube_video', error);
     }
   },
   {

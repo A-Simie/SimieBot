@@ -5,6 +5,7 @@ import { z } from 'zod';
 
 import { getAccessToken } from '../auth0-ai';
 import { stageDriveAssetToS3 } from '../creator-pipeline';
+import { toTypedToolError } from './tool-errors';
 
 export const downloadDriveAssetTool = tool(
   async ({ fileId }) => {
@@ -24,7 +25,7 @@ export const downloadDriveAssetTool = tool(
         throw new TokenVaultError('Authorization required to download the Google Drive asset.');
       }
 
-      throw error;
+      return toTypedToolError('download_drive_asset', error);
     }
   },
   {

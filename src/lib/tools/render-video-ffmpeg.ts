@@ -2,19 +2,24 @@ import { tool } from '@langchain/core/tools';
 import { z } from 'zod';
 
 import { renderVideoWithFfmpeg, videoEditPlanSchema } from '../creator-pipeline';
+import { toTypedToolError } from './tool-errors';
 
 export const renderVideoWithFfmpegTool = tool(
   async ({ bucket, sourceKey, editPlan }) => {
-    const output = await renderVideoWithFfmpeg({
-      bucket,
-      sourceKey,
-      plan: videoEditPlanSchema.parse(editPlan),
-    });
+    try {
+      const output = await renderVideoWithFfmpeg({
+        bucket,
+        sourceKey,
+        plan: videoEditPlanSchema.parse(editPlan),
+      });
 
-    return {
-      status: 'rendered',
-      output,
-    };
+      return {
+        status: 'rendered',
+        output,
+      };
+    } catch (error) {
+      return toTypedToolError('render_video_ffmpeg', error);
+    }
   },
   {
     name: 'render_video_ffmpeg',

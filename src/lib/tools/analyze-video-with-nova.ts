@@ -2,6 +2,7 @@ import { tool } from '@langchain/core/tools';
 import { z } from 'zod';
 
 import { aspectRatioSchema, planVideoEditWithNova, videoEditPlanSchema } from '../creator-pipeline';
+import { toTypedToolError } from './tool-errors';
 
 const stagedAssetSchema = z.object({
   id: z.string(),
@@ -18,23 +19,35 @@ const stagedAssetSchema = z.object({
 
 export const analyzeVideoWithNovaTool = tool(
   async ({ stagedAsset, creativeGoal, outputAspectRatio, maxClipDurationSeconds, additionalContext }) => {
-    const plan = await planVideoEditWithNova({
-      stagedAsset,
-      creativeGoal,
-      outputAspectRatio,
-      maxClipDurationSeconds,
-      additionalContext,
-    });
+    try {
+      const warnings = [
+        stagedAsset.durationSeconds == null ? 'The staged asset is missing stored duration metadata.' : null,
+        stagedAsset.width == null || stagedAsset.height == null
+          ? 'The staged asset is missing stored width/height metadata, so Nova will rely more heavily on direct video inspection.'
+          : null,
+      ].filter((warning): warning is string => Boolean(warning));
 
-    return {
-      status: 'planned',
-      stagedAsset: {
-        id: stagedAsset.id,
-        name: stagedAsset.name,
-        s3Uri: stagedAsset.s3Uri,
-      },
-      editPlan: videoEditPlanSchema.parse(plan),
-    };
+      const plan = await planVideoEditWithNova({
+        stagedAsset,
+        creativeGoal,
+        outputAspectRatio,
+        maxClipDurationSeconds,
+        additionalContext,
+      });
+
+      return {
+        status: 'planned',
+        stagedAsset: {
+          id: stagedAsset.id,
+          name: stagedAsset.name,
+          s3Uri: stagedAsset.s3Uri,
+        },
+        warnings,
+        editPlan: videoEditPlanSchema.parse(plan),
+      };
+    } catch (error) {
+      return toTypedToolError('analyze_video_with_nova', error);
+    }
   },
   {
     name: 'analyze_video_with_nova',

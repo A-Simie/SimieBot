@@ -6,7 +6,6 @@ SimieBot is a hackathon-focused Auth0 agent workspace built with Next.js, LangGr
 
 SimieBot keeps a delegated multi-node architecture:
 - `general`: Gmail, Calendar, user identity, and general assistant tasks
-- `finance`: future Coinbase connected-account workflows
 - `creator`: Drive/Slack -> Amazon Nova planning -> FFmpeg render -> YouTube workflows
 
 The graph intentionally routes requests through a router node first, then delegates to a specialist node.
@@ -67,5 +66,4 @@ npm run all:dev
 
 - Gmail and Calendar flows are real.
 - The creator pipeline now includes real Drive asset discovery/staging, Nova edit planning, FFmpeg render orchestration, and YouTube upload wiring.
-- The finance path is still an intentional placeholder for future Coinbase work.
 - To render videos locally, FFmpeg must be installed or `FFMPEG_PATH` must point to the binary.

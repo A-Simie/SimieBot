@@ -1,7 +1,6 @@
 import { Annotation, MessagesAnnotation, StateGraph, START, END, MemorySaver, InMemoryStore } from '@langchain/langgraph';
 import { routerNode } from './nodes/router';
 import { generalNode } from './nodes/general';
-import { financeNode } from './nodes/finance';
 import { creatorNode } from './nodes/creator';
 import { responseFormatterNode } from './nodes/response-formatter';
 
@@ -20,19 +19,16 @@ const routeByIntent = (state: typeof SimieBotAnnotation.State) => {
 const workflow = new StateGraph(SimieBotAnnotation)
   .addNode('router', routerNode)
   .addNode('general', generalNode)
-  .addNode('finance', financeNode)
   .addNode('creator', creatorNode)
   .addNode('response_formatter', responseFormatterNode)
   .addEdge(START, 'router')
 
   .addConditionalEdges('router', routeByIntent, {
     general: 'general',
-    finance: 'finance',
     creator: 'creator',
   })
 
   .addEdge('general', 'response_formatter')
-  .addEdge('finance', 'response_formatter')
   .addEdge('creator', 'response_formatter')
   .addEdge('response_formatter', END);
 
